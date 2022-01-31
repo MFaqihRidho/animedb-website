@@ -2,14 +2,17 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     darkMode: "class",
     theme: {
-        fontFamily: {
-            Lato: ["Lato", "sans-serif"],
+        extend: {
+            fontFamily: {
+                Lato: ["Lato", "sans-serif"],
+            },
+            colors: {
+                dark_primary: "#03045E",
+                dark_secondary: "#023E8A",
+                light_primary: "#90E0EF",
+                light_secondary: "#48CAE4",
+            },
         },
-        colors: {
-            dark_primary: "#03045E",
-            light_primary: "#90E0EF",
-        },
-        extend: {},
     },
     plugins: [],
 };
