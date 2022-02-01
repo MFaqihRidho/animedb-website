@@ -18,7 +18,7 @@ export default function MobileNav(props) {
             <Link
                 onClick={props.onClick}
                 className="text-3xl font-semibold "
-                to="about"
+                to="anime"
             >
                 Anime
             </Link>

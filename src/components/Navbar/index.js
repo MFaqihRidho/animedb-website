@@ -67,7 +67,7 @@ export default function Navbar() {
                     <Link className="text-xl font-medium " to="/">
                         Home
                     </Link>
-                    <Link className="text-xl font-medium " to="about">
+                    <Link className="text-xl font-medium " to="anime">
                         Anime
                     </Link>
                     <Link className="text-xl font-medium " to="manga">
