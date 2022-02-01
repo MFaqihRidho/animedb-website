@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
+import MobileNav from "../mobilenav";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-    function theme() {
+    const menuRef = useRef(null);
+    const [showDropDown, setShowDropDown] = useState(false);
+    const [listening, setListening] = useState(false);
+
+    const toggleDropDown = () => {
+        setShowDropDown(!showDropDown);
+    };
+
+    const theme = () => {
         if (localStorage.theme === "light") {
             document.documentElement.classList.add("dark");
             localStorage.theme = "dark";
@@ -10,14 +19,51 @@ export default function Navbar() {
             document.documentElement.classList.remove("dark");
             localStorage.theme = "light";
         }
-    }
+    };
+
+    useEffect(() => {
+        if (listening) return;
+        if (!menuRef.current) return;
+        setListening(true);
+        [`click`, `touchstart`].forEach((type) => {
+            document.addEventListener(`click`, (evt) => {
+                const cur = menuRef.current;
+                const node = evt.target;
+                if (cur.contains(node)) return;
+                setShowDropDown(false);
+            });
+        });
+    }, [listening]);
+
     return (
-        <nav className="h-16 py-3 transition-all duration-300 bg-light_primary dark:bg-dark_primary">
-            <div className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200">
-                <div>
+        <nav
+            ref={menuRef}
+            className="h-16 py-3 transition-all duration-300 bg-light_primary dark:bg-dark_primary"
+        >
+            <div className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200 px-3">
+                <div className="hidden md:block">
                     <h1 className="text-2xl font-bold ">Anime Finder</h1>
                 </div>
-                <div className="flex gap-5 mt-1">
+                <div
+                    onClick={toggleDropDown}
+                    className="sm:hidden cursor-pointer"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-9 w-9"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 6h16M4 12h8m-8 6h16"
+                        />
+                    </svg>
+                </div>
+                <div className="gap-5 mt-1 hidden sm:flex">
                     <Link className="text-xl font-medium " to="/">
                         Home
                     </Link>
@@ -28,12 +74,12 @@ export default function Navbar() {
                         Manga
                     </Link>
                 </div>
-                <div class="flex items-center h-9 bg-white dark:bg-gray-700 rounded-lg transition-all duration-300">
+                <div class="flex items-center h-9 w-1/2 md:w-1/4 bg-white dark:bg-gray-500 rounded-lg transition-all duration-300">
                     <div class="w-full">
                         <input
                             type="search"
-                            class="w-full px-4 text-gray-800 dark:bg-gray-700 rounded-full focus:outline-none transition-all duration-300"
-                            placeholder="search"
+                            class="w-full px-4 py-1 dark:text-gray-200 text-gray-800 dark:bg-gray-500 rounded-full focus:outline-none transition-colors duration-300"
+                            placeholder="search anime"
                         ></input>
                     </div>
                     <div>
@@ -101,6 +147,7 @@ export default function Navbar() {
                     </button>
                 </div>
             </div>
+            <MobileNav onClick={toggleDropDown} show={showDropDown}></MobileNav>
         </nav>
     );
 }
