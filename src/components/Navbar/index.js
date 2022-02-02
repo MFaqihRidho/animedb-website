@@ -12,14 +12,22 @@ export default function Navbar() {
     };
 
     const theme = () => {
-        if (localStorage.theme === "light") {
+        if (localStorage.dark === "false") {
             document.documentElement.classList.add("dark");
-            localStorage.theme = "dark";
+            localStorage.setItem("dark", true);
         } else {
             document.documentElement.classList.remove("dark");
-            localStorage.theme = "light";
+            localStorage.setItem("dark", false);
         }
     };
+
+    useEffect(() => {
+        if (localStorage.dark === "true") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, []);
 
     useEffect(() => {
         if (listening) return;

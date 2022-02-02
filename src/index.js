@@ -4,10 +4,29 @@ import { BrowserRouter } from "react-router-dom";
 import "./global.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+const redux = require("redux");
+
+const createStore = redux.createStore;
+const initialState = {
+    heroLoading: true,
+};
+const rootReducer = (state = initialState, action) => {
+    if (action.type === "LOADING_HERO") {
+        return {
+            heroLoading: false,
+        };
+    }
+    return state;
+};
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
     <BrowserRouter>
-        <App />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </BrowserRouter>,
     document.getElementById("root")
 );
