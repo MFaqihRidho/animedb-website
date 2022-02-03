@@ -45,7 +45,7 @@ export default function Hero() {
                     >
                         {data.map((data) => (
                             <SplideSlide>
-                                <div className="flex w-full overflow-hidden transition-all duration-300 bg-white h-96 dark:bg-gray-500 rounded-3xl">
+                                <div className="flex w-fit md:w-full mx-auto overflow-hidden transition-all duration-300 bg-white h-96 dark:bg-gray-500 rounded-3xl">
                                     {data.trailer.embed_url ? (
                                         <div className="relative hidden xl:block w-2/3 h-full rounded iframe-container">
                                             <iframe
@@ -61,21 +61,31 @@ export default function Hero() {
                                     )}
 
                                     {data.images.jpg.large_image_url ? (
-                                        <img
-                                            src={
-                                                data.images.jpg.large_image_url
+                                        <a
+                                            href={
+                                                data.trailer.url
+                                                    ? data.trailer.url
+                                                    : `https://www.youtube.com/results?search_query=${data.title}`
                                             }
-                                            alt=""
-                                            className="block xl:hidden object-cover w-full"
-                                        />
+                                            className="block relative xl:hidden"
+                                        >
+                                            <img
+                                                src={
+                                                    data.images.jpg
+                                                        .large_image_url
+                                                }
+                                                alt=""
+                                                className="block xl:hidden h-full object-cover w-full md:max-w-xs"
+                                            />
+                                        </a>
                                     ) : (
-                                        <h1 className="block xl:hidden m-auto text-5xl font-semibold w-2/3 text-center">
+                                        <h1 className="block xl:hidden m-auto text-4xl font-semibold w-2/3 text-center">
                                             No image available
                                         </h1>
                                     )}
 
                                     <div className="w-1/2 px-5 py-16 hidden md:block m-auto">
-                                        <h3 className="text-6xl max-h-[11.5rem] overflow-hidden elipsiss font-semibold">
+                                        <h3 className="md:text-6xl max-h-[11.5rem] overflow-hidden elipsiss font-semibold">
                                             {data.title}
                                         </h3>
                                         <p className="text-xl max-h-14 truncate ">
