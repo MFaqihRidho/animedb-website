@@ -44,11 +44,11 @@ export default function Navbar() {
     }, [listening]);
 
     return (
-        <nav
-            ref={menuRef}
-            className="h-16 py-3 transition-all duration-300 bg-light_primary dark:bg-dark_primary"
-        >
-            <div className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200 px-3">
+        <nav className="h-16 py-3 transition-all duration-300 bg-light_primary dark:bg-dark_primary">
+            <div
+                ref={menuRef}
+                className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200 px-3"
+            >
                 <div className="hidden md:block">
                     <h1 className="text-2xl font-bold ">Anime Finder</h1>
                 </div>
@@ -117,44 +117,49 @@ export default function Navbar() {
                         title="Toggle Theme"
                         onClick={theme}
                         class="
-        w-12 
-        h-6 
-        rounded-full 
-        bg-light_primary 
-        border-dark_primary
-            dark:bg-dark_primary
-            dark:border-light_primary
-            border-2
-        relative 
-        transition-colors 
-        duration-500 
-        ease-in
-        focus:outline-none 
-        focus:ring-1 
-        focus:ring-dark_primary
-        dark:focus:ring-light_primary 
-      "
+            w-12 
+            h-6 
+            rounded-full 
+            bg-light_primary 
+            border-dark_primary
+                dark:bg-dark_primary
+                dark:border-light_primary
+                border-2
+            relative 
+            transition-colors 
+            duration-500 
+            ease-in
+            focus:outline-none 
+            focus:ring-1 
+            focus:ring-dark_primary
+            dark:focus:ring-light_primary 
+        "
                     >
                         <div
                             id="toggle"
                             class="
-            rounded-full 
-            w-4 
-            h-4 
-            bg-dark_primary 
-            dark:bg-light_primary 
-            relative 
-            ml-1 
-            dark:ml-6 
-            pointer-events-none 
-            transition-all 
-            duration-300 
-            ease-out
-        "
+                rounded-full 
+                w-4 
+                h-4 
+                bg-dark_primary 
+                dark:bg-light_primary 
+                relative 
+                ml-1 
+                dark:ml-6 
+                pointer-events-none 
+                transition-all 
+                duration-300 
+                ease-out
+            "
                         ></div>
                     </button>
                 </div>
             </div>
+            <div
+                className={`w-full h-screen top-0 ${
+                    showDropDown ? "inline-block" : "hidden"
+                } fixed bg-black opacity-50 z-40`}
+            ></div>
             <MobileNav onClick={toggleDropDown} show={showDropDown}></MobileNav>
         </nav>
     );
