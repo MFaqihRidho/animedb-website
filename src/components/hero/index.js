@@ -13,14 +13,13 @@ export default function Hero() {
 
     useEffect(() => {
         getUpcomingAPI().then((result) => {
-            console.log(result);
             setData(result.data);
             dispatch({ type: "LOADING_HERO" });
         });
     }, []);
 
     return (
-        <div className="w-full -mt-1 p-5 transition-all duration-300 dark:bg-dark_primary bg-light_primary min-h-screen md:min-h-fit">
+        <div className="w-full -mt-1 p-5 transition-all duration-300 dark:bg-dark_primary bg-light_primary min-h-screen mb-10 md:min-h-fit">
             <div className="container mx-auto text-gray-700 dark:text-gray-200">
                 <h1 className="pt-4 text-3xl sm:text-4xl font-semibold text-center ">
                     Top Upcoming Anime

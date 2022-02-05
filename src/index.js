@@ -10,11 +10,19 @@ const redux = require("redux");
 const createStore = redux.createStore;
 const initialState = {
     heroLoading: true,
+    cardLoading: true,
 };
 const rootReducer = (state = initialState, action) => {
     if (action.type === "LOADING_HERO") {
         return {
+            ...state,
             heroLoading: false,
+        };
+    }
+    if (action.type === "LOADING_CARD") {
+        return {
+            ...state,
+            cardLoading: false,
         };
     }
     return state;
