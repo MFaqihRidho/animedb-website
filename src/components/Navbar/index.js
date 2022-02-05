@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import MobileNav from "../mobilenav";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export default function Navbar() {
     const menuRef = useRef(null);
     const [showDropDown, setShowDropDown] = useState(false);
     const [listening, setListening] = useState(false);
+
+    const dispatch = useDispatch();
 
     const toggleDropDown = () => {
         setShowDropDown(!showDropDown);
@@ -15,9 +18,11 @@ export default function Navbar() {
         if (localStorage.dark === "false") {
             document.documentElement.classList.add("dark");
             localStorage.setItem("dark", true);
+            dispatch({ type: "DARK_MODE" });
         } else {
             document.documentElement.classList.remove("dark");
             localStorage.setItem("dark", false);
+            dispatch({ type: "LIGHT_MODE" });
         }
     };
 

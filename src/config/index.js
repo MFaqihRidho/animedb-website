@@ -15,3 +15,9 @@ export const getRandomAPI = () => {
         res.json().then((results) => Promise.resolve(results))
     );
 };
+
+export const getDetailsAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};

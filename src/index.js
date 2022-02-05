@@ -11,6 +11,7 @@ const createStore = redux.createStore;
 const initialState = {
     heroLoading: true,
     cardLoading: true,
+    dark: false,
 };
 const rootReducer = (state = initialState, action) => {
     if (action.type === "LOADING_HERO") {
@@ -23,6 +24,18 @@ const rootReducer = (state = initialState, action) => {
         return {
             ...state,
             cardLoading: false,
+        };
+    }
+    if (action.type === "DARK_MODE") {
+        return {
+            ...state,
+            dark: true,
+        };
+    }
+    if (action.type === "LIGHT_MODE") {
+        return {
+            ...state,
+            dark: false,
         };
     }
     return state;

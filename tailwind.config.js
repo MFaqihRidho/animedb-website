@@ -12,6 +12,10 @@ module.exports = {
                 light_primary: "#90E0EF",
                 light_secondary: "#48CAE4",
             },
+            maxWidth: {
+                mini: "15ch",
+                superMini: "9ch",
+            },
         },
     },
     plugins: [],
