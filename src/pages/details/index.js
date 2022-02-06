@@ -84,6 +84,72 @@ export default function Details() {
                             </p>
                         </div>
                     </div>
+                    <div className="flex w-full py-5">
+                        <div className="flex flex-col items-center rounded-2xl transition-colors duration-300 py-2 px-2  bg-yellow-400 dark:bg-yellow-600">
+                            <p className="text-md font-bold">SCORE</p>
+
+                            <div className="flex font-bold items-end">
+                                <p className="text-3xl">
+                                    {data.score
+                                        ? Math.floor(data.score)
+                                        : "unknown"}
+                                </p>
+                                <p className="text-2xl">
+                                    {data.score
+                                        ? (data.score - Math.floor(data.score))
+                                              .toFixed(2)
+                                              .toString()
+                                              .replace("0", "")
+                                        : ""}
+                                </p>
+                            </div>
+                            <p className="font-light">
+                                {data.scored_by
+                                    ? ` ${data.scored_by
+                                          .toString()
+                                          .replace(
+                                              /\B(?=(\d{3})+(?!\d))/g,
+                                              ","
+                                          )} users`
+                                    : "unknown"}
+                            </p>
+                        </div>
+                        <div className="ml-10 flex w-full items-start justify-evenly flex-col border-2 rounded-xl">
+                            <div className="flex justify-center items-center gap-4 px-5">
+                                <p className="flex gap-1 font-bold">
+                                    Type :
+                                    <p className="font-light">{data.type}</p>
+                                </p>
+                                <p className="flex gap-1 font-bold">
+                                    Episode :
+                                    <p className="font-light">
+                                        {data.episodes
+                                            ? data.episodes
+                                            : "unknown"}
+                                    </p>
+                                </p>
+                                <p className="flex gap-1 font-bold">
+                                    Genre :
+                                    <p className="font-light">
+                                        {data.genres
+                                            ? data.genres.map(
+                                                  (data) => `${data.name},`
+                                              )
+                                            : "unknown"}
+                                    </p>
+                                </p>
+                                <p className="flex gap-1 font-bold">
+                                    Status :
+                                    <p className="font-light">{data.status}</p>
+                                </p>
+                            </div>
+                            <div className="w-full bg-white h-[1px]"></div>
+                            <div className="flex justify-center items-center px-5">
+                                <p>Aired 2022</p>
+                                <p>Aired 2022</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
