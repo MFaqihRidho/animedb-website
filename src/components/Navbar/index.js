@@ -52,7 +52,7 @@ export default function Navbar() {
         <nav className="h-16 py-3 transition-all duration-300 bg-light_primary dark:bg-dark_primary">
             <div
                 ref={menuRef}
-                className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200 px-3"
+                className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200 px-5"
             >
                 <div className="hidden md:block">
                     <h1 className="text-2xl font-bold ">Anime Finder</h1>

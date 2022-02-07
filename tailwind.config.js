@@ -13,6 +13,8 @@ module.exports = {
                 light_secondary: "#48CAE4",
             },
             maxWidth: {
+                synopsis: "50ch",
+                read: "28ch",
                 mini: "15ch",
                 superMini: "9ch",
             },
