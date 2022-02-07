@@ -9,9 +9,9 @@ export default function Details() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await getDetailsAPI(params.id).then((result) =>
-                setData(result.data)
-            );
+            await getDetailsAPI(params.id).then((result) => {
+                setData(result.data);
+            });
         };
         fetchData();
     }, [params.id]);
@@ -84,8 +84,8 @@ export default function Details() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex w-full py-5">
-                        <div className="flex flex-col items-center rounded-2xl transition-colors duration-300 py-2 px-2  bg-yellow-400 dark:bg-yellow-600">
+                    <div className="flex gap-10 justify-between w-full pt-7 pb-10">
+                        <div className="flex w-[11%]  flex-col items-center rounded-2xl transition-colors duration-300 py-2 px-2  bg-yellow-400 dark:bg-yellow-600">
                             <p className="text-md font-bold">SCORE</p>
 
                             <div className="flex font-bold items-end">
@@ -103,7 +103,7 @@ export default function Details() {
                                         : ""}
                                 </p>
                             </div>
-                            <p className="font-light">
+                            <p className="font-normal dark:font-light  ">
                                 {data.scored_by
                                     ? ` ${data.scored_by
                                           .toString()
@@ -114,15 +114,17 @@ export default function Details() {
                                     : "unknown"}
                             </p>
                         </div>
-                        <div className="ml-10 flex w-full items-start justify-evenly flex-col border-2 rounded-xl">
-                            <div className="flex justify-center items-center gap-4 px-5">
+                        <div className=" flex w-full items-start justify-evenly flex-col border-2 rounded-xl">
+                            <div className="flex justify-center w-full items-center gap-4 px-5">
                                 <p className="flex gap-1 font-bold">
                                     Type :
-                                    <p className="font-light">{data.type}</p>
+                                    <p className="font-normal dark:font-light">
+                                        {data.type}
+                                    </p>
                                 </p>
                                 <p className="flex gap-1 font-bold">
                                     Episode :
-                                    <p className="font-light">
+                                    <p className="font-normal dark:font-light">
                                         {data.episodes
                                             ? data.episodes
                                             : "unknown"}
@@ -130,23 +132,71 @@ export default function Details() {
                                 </p>
                                 <p className="flex gap-1 font-bold">
                                     Genre :
-                                    <p className="font-light">
+                                    <p className="font-normal dark:font-light">
                                         {data.genres
-                                            ? data.genres.map(
-                                                  (data) => `${data.name},`
+                                            ? data.genres
+                                                  .map((data) => data.name)
+                                                  .join(",")
+                                            : "unknown"}
+                                        {data.themes
+                                            ? data.themes.map(
+                                                  (data) => `,${data.name}`
                                               )
                                             : "unknown"}
                                     </p>
                                 </p>
                                 <p className="flex gap-1 font-bold">
+                                    Duration :
+                                    <p className="font-normal dark:font-light">
+                                        {data.duration
+                                            ? data.duration
+                                            : "unknown"}
+                                    </p>
+                                </p>
+                                <p className="flex gap-1 font-bold">
                                     Status :
-                                    <p className="font-light">{data.status}</p>
+                                    <p className="font-normal dark:font-light">
+                                        {data.status}
+                                    </p>
                                 </p>
                             </div>
                             <div className="w-full bg-white h-[1px]"></div>
-                            <div className="flex justify-center items-center px-5">
-                                <p>Aired 2022</p>
-                                <p>Aired 2022</p>
+                            <div className="flex w-full justify-center gap-4 items-center px-5">
+                                <p className="flex gap-1 font-bold">
+                                    Aired :
+                                    <p className="font-normal dark:font-light">
+                                        {data?.aired?.string}
+                                    </p>
+                                </p>
+                                <p className="flex gap-1 font-bold">
+                                    Broadcast :
+                                    <p className="font-normal dark:font-light">
+                                        {data?.broadcast?.string
+                                            ? data.broadcast.string
+                                            : "unknown"}
+                                    </p>
+                                </p>
+                                <p className="flex gap-1 font-bold">
+                                    Studios :
+                                    <a
+                                        href="/"
+                                        className="font-normal dark:font-light"
+                                    >
+                                        {data?.studios
+                                            ? data.studios.length !== 0
+                                                ? data.studios
+                                                      .map((data) => data.name)
+                                                      .join(",")
+                                                : "unknown"
+                                            : "unknown"}
+                                    </a>
+                                </p>
+                                <p className="flex gap-1 font-bold">
+                                    Rating :
+                                    <p className="font-normal dark:font-light">
+                                        {data.rating ? data.rating : "unknown"}
+                                    </p>
+                                </p>
                             </div>
                         </div>
                     </div>
