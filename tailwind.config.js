@@ -16,7 +16,7 @@ module.exports = {
                 synopsis: "50ch",
                 read: "28ch",
                 mini: "15ch",
-                superMini: "9ch",
+                superMini: "10ch",
             },
         },
     },

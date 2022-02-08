@@ -21,3 +21,9 @@ export const getDetailsAPI = (id) => {
         res.json().then((results) => Promise.resolve(results))
     );
 };
+
+export const getVideosAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/videos`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};
