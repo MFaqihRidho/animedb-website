@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getDetailsAPI } from "../../config";
 import Videos from "../../components/content/videos";
+import Episodes from "../../components/content/Episodes";
+import Reviews from "../../components/content/reviews";
 
 export default function Details() {
     const params = useParams();
@@ -13,9 +15,13 @@ export default function Details() {
     };
 
     useEffect(() => {
-        switchContent(1);
+        switchContent(3);
         getDetailsAPI(params.id).then((result) => {
             setData(result.data);
+        });
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
         });
     }, [params.id]);
     return (
@@ -241,7 +247,7 @@ export default function Details() {
                 <div className="container justify-between  w-full mx-auto flex">
                     <button
                         onClick={() => switchContent(1)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
                             content === 1
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -251,7 +257,7 @@ export default function Details() {
                     </button>
                     <button
                         onClick={() => switchContent(2)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
                             content === 2
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -261,7 +267,7 @@ export default function Details() {
                     </button>
                     <button
                         onClick={() => switchContent(3)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                             content === 3
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -271,7 +277,7 @@ export default function Details() {
                     </button>
                     <button
                         onClick={() => switchContent(4)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                             content === 4
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -281,7 +287,7 @@ export default function Details() {
                     </button>
                     <button
                         onClick={() => switchContent(5)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                             content === 5
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -291,7 +297,7 @@ export default function Details() {
                     </button>
                     <button
                         onClick={() => switchContent(6)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                             content === 6
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -301,7 +307,7 @@ export default function Details() {
                     </button>
                     <button
                         onClick={() => switchContent(7)}
-                        className={`uppercase border-b-4 border-b-transparent  pb-2 ${
+                        className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                             content === 7
                                 ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
                                 : "border-b-4 border-b-transparent"
@@ -313,6 +319,12 @@ export default function Details() {
                 <div className="container mx-auto min-h-fit">
                     <div className={content === 1 ? "block" : "hidden"}>
                         <Videos></Videos>
+                    </div>
+                    <div className={content === 2 ? "block" : "hidden"}>
+                        <Episodes></Episodes>
+                    </div>
+                    <div className={content === 3 ? "block" : "hidden"}>
+                        <Reviews></Reviews>
                     </div>
                 </div>
             </div>

@@ -27,3 +27,15 @@ export const getVideosAPI = (id) => {
         res.json().then((results) => Promise.resolve(results))
     );
 };
+
+export const getEpisodesAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/episodes`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};
+
+export const getReviewsAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/reviews`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};

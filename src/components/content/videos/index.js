@@ -12,15 +12,18 @@ export default function Videos() {
         });
     }, [params.id]);
     return (
-        <div className="flex flex-col py-10">
+        <div className="flex flex-col gap-10 py-5">
             {data?.promo
                 ? data.promo.map((data) => (
-                      <div className="iframe-container w-full h-full relative">
-                          <iframe
-                              src={data?.trailer?.embed_url}
-                              frameborder="0"
-                              className=" w-full h-full"
-                          ></iframe>
+                      <div>
+                          <p className="text-3xl py-5">{data.title}</p>
+                          <div className="iframe-container rounded-xl overflow-hidden w-full h-[45rem] relative">
+                              <iframe
+                                  src={data?.trailer?.embed_url}
+                                  frameborder="0"
+                                  className=" w-full h-full"
+                              ></iframe>
+                          </div>
                       </div>
                   ))
                 : null}
