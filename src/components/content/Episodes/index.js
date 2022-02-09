@@ -7,12 +7,18 @@ export default function Episodes() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        getEpisodesAPI(params.id).then((results) => {
-            setData(results.data);
+        let mounted = true;
+        getEpisodesAPI(params.id).then((result) => {
+            if (mounted) {
+                setData(result.data);
+            } else {
+                return;
+            }
         });
+        return () => (mounted = false);
     }, [params.id]);
     return (
-        <div className="flex flex-col pt-10 w-full items-start">
+        <div className="flex flex-col items-start w-full pt-10">
             {data?.length !== 0 ? (
                 data.map((data) => (
                     <div className="text-2xl py-2 grid grid-cols-[0.5fr,0.5fr,1fr,1fr]">
@@ -22,7 +28,7 @@ export default function Episodes() {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="underline-offset-2  decoration-1 underline"
+                                className="underline underline-offset-2 decoration-1"
                                 href={data.url}
                             >
                                 {data.title}
@@ -36,7 +42,7 @@ export default function Episodes() {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="underline-offset-2  decoration-1 underline"
+                                className="underline underline-offset-2 decoration-1"
                                 href={data.forum_url}
                             >
                                 Forum

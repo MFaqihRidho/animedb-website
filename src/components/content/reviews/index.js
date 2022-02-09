@@ -7,27 +7,37 @@ export default function Reviews() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        getReviewsAPI(params.id).then((results) => {
-            setData(results.data);
+        let mounted = true;
+        getReviewsAPI(params.id).then((result) => {
+            if (mounted) {
+                setData(result.data);
+            } else {
+                return;
+            }
         });
+        return () => (mounted = false);
     }, [params.id]);
 
     return (
         <div className="flex flex-col gap-10 pt-10">
-            {data ? (
-                data.map((data) => (
-                    <div className="grid grid-cols-[1fr,9fr] gap-5">
+            {data?.length !== 0 ? (
+                data?.map((data) => (
+                    <div className="grid grid-cols-[1fr,8fr] gap-5">
                         <img
-                            className="rounded-full object-cover border-4 border-light_secondary dark:border-dark_secondary w-28 h-28"
+                            className="object-cover border-4 rounded-full border-light_secondary dark:border-dark_secondary w-28 h-28"
                             src={data?.user?.images?.jpg?.image_url}
                             alt=""
                         />
-                        <div className="border-2 border-light_secondary dark:border-dark_secondary rounded-2xl px-5 pb-4 pt-2">
-                            <div className="flex  py-2">
+
+                        <div className="relative px-5 pt-2 pb-4 border-2 border-light_secondary dark:border-dark_secondary rounded-2xl">
+                            <div class="w-10 top-5  -left-10 absolute overflow-hidden  inline-block">
+                                <div class=" h-16 border-2 border-light_secondary dark:border-dark_secondary bg-white  dark:bg-black  -rotate-45 transform origin-top-right"></div>
+                            </div>
+                            <div className="flex py-2">
                                 <h5 className="pr-2 text-2xl font-bold ">
                                     {data?.user?.username}
                                 </h5>
-                                <p className="text-lg pt-1 text-gray-500 ">
+                                <p className="pt-1 text-lg text-gray-500 ">
                                     {data.date}
                                 </p>
                             </div>

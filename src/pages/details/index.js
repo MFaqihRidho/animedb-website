@@ -15,14 +15,16 @@ export default function Details() {
     };
 
     useEffect(() => {
-        switchContent(3);
+        let mounted = true;
+        switchContent(4);
         getDetailsAPI(params.id).then((result) => {
-            setData(result.data);
+            if (mounted) {
+                setData(result.data);
+            } else {
+                return;
+            }
         });
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
+        return () => (mounted = false);
     }, [params.id]);
     return (
         <div className="w-full min-h-screen text-gray-700 dark:text-gray-200">
@@ -40,27 +42,27 @@ export default function Details() {
             </div>
             <div className="w-full transition-all duration-300 h-fit bg-light_primary dark:bg-dark_primary ">
                 <div className="container flex flex-col mx-auto">
-                    <div className="flex flex-col w-full px-5 items-center md:items-start lg:items-center md:flex-row">
-                        <div className="md:flex  -mt-44  md:-mt-40  md:flex-col md:items-center md:gap-10">
+                    <div className="flex flex-col items-center w-full px-5 md:items-start lg:items-center md:flex-row">
+                        <div className="md:flex -mt-44 md:-mt-40 md:flex-col md:items-center md:gap-10">
                             <img
-                                className="relative h-96 md:h-full md:max-w-xs  rounded-2xl "
+                                className="relative h-96 md:h-full md:max-w-xs rounded-2xl "
                                 src={data?.images?.jpg?.image_url}
                                 alt=""
                             />
-                            <div className="hidden md:flex w-2/3 xl:hidden  flex-col items-center rounded-2xl transition-colors duration-300 py-2 px-2  bg-yellow-400 dark:bg-yellow-600">
+                            <div className="flex-col items-center hidden w-2/3 px-2 py-2 transition-colors duration-300 bg-yellow-400 md:flex xl:hidden rounded-2xl dark:bg-yellow-600">
                                 <p className="font-bold text-md">SCORE</p>
 
                                 <div className="flex items-end font-bold">
                                     <p className="text-5xl">
-                                        {data.score
-                                            ? Math.floor(data.score)
+                                        {data?.score
+                                            ? Math.floor(data?.score)
                                             : "NA"}
                                     </p>
                                     <p className="text-3xl">
-                                        {data.score
+                                        {data?.score
                                             ? (
-                                                  data.score -
-                                                  Math.floor(data.score)
+                                                  data?.score -
+                                                  Math.floor(data?.score)
                                               )
                                                   .toFixed(2)
                                                   .toString()
@@ -81,17 +83,17 @@ export default function Details() {
                             </div>
                         </div>
                         <div className="w-full px-7 md:-mt-16 ">
-                            <h1 className="relative md:whitespace-nowrap md:overflow-hidden md:text-ellipsis text-2xl md:text-3xl text-center mt-5 md:text-left md:max-w-read lg:max-w-full font-bold ">
+                            <h1 className="relative mt-5 text-2xl font-bold text-center md:whitespace-nowrap md:overflow-hidden md:text-ellipsis md:text-3xl md:text-left md:max-w-read lg:max-w-full ">
                                 {data.title}
                             </h1>
-                            <div className="flex flex-col lg:flex-row justify-between w-full pt-5">
-                                <div className="order-2 mt-3  md:mt-0 lg:order-1">
-                                    <h3 className="text-2xl text-center md:text-left  font-bold">
+                            <div className="flex flex-col justify-between w-full pt-5 lg:flex-row">
+                                <div className="order-2 mt-3 md:mt-0 lg:order-1">
+                                    <h3 className="text-2xl font-bold text-center md:text-left">
                                         Synopsis
                                     </h3>
                                 </div>
-                                <div className="flex flex-col  md:flex-row items-center mb-3 order-1 md:justify-start justify-center lg:order-2 gap-3 lg:gap-5">
-                                    <h3 className="flex gap-1  text-xl font-bold">
+                                <div className="flex flex-col items-center justify-center order-1 gap-3 mb-3 md:flex-row md:justify-start lg:order-2 lg:gap-5">
+                                    <h3 className="flex gap-1 text-xl font-bold">
                                         Ranked:{""}
                                         <p className="font-normal">
                                             {data.rank
@@ -127,7 +129,7 @@ export default function Details() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center flex-col xl:flex-row justify-between px-5 w-full gap-10 pb-10 pt-7">
+                    <div className="flex flex-col items-center justify-between w-full gap-10 px-5 pb-10 xl:flex-row pt-7">
                         <div className="flex md:hidden w-1/2 xl:flex xl:w-[11%]  justify-center flex-col items-center rounded-2xl transition-colors duration-300 py-1 px-1  bg-yellow-400 dark:bg-yellow-600">
                             <p className="font-bold text-md">SCORE</p>
 
@@ -156,8 +158,8 @@ export default function Details() {
                             </p>
                         </div>
                         <div className="flex-col items-start w-full border-2 border-gray-700 lg:flex dark:border-gray-200 justify-evenly rounded-xl">
-                            <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 p-5">
-                                <p className="flex gap-1  font-bold">
+                            <div className="flex flex-col items-center justify-center w-full gap-4 p-5 xl:flex-row">
+                                <p className="flex gap-1 font-bold">
                                     Type :
                                     <p className="font-normal dark:font-light">
                                         {data.type ? data.type : "unknown"}
@@ -171,9 +173,9 @@ export default function Details() {
                                             : "unknown"}
                                     </p>
                                 </p>
-                                <p className="text-center md:flex gap-1 font-bold">
+                                <p className="gap-1 font-bold text-center md:flex">
                                     Genre :
-                                    <p className="font-normal  dark:font-light">
+                                    <p className="font-normal dark:font-light">
                                         {data.genres
                                             ? data.genres
                                                   .map((data) => data.name)
@@ -202,7 +204,7 @@ export default function Details() {
                                 </p>
                             </div>
                             <div className="w-full  bg-gray-700 dark:bg-gray-200 h-[1px]"></div>
-                            <div className="flex flex-col xl:flex-row items-center justify-center w-full gap-4 p-5">
+                            <div className="flex flex-col items-center justify-center w-full gap-4 p-5 xl:flex-row">
                                 <p className="flex gap-1 font-bold">
                                     Aired :
                                     <p className="font-normal dark:font-light">
@@ -243,8 +245,8 @@ export default function Details() {
                     </div>
                 </div>
             </div>
-            <div className="min-h-fit w-full px-5 py-10">
-                <div className="container justify-between  w-full mx-auto flex">
+            <div className="w-full px-5 py-10 min-h-fit">
+                <div className="container flex justify-between w-full mx-auto">
                     <button
                         onClick={() => switchContent(1)}
                         className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
