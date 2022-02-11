@@ -4,6 +4,8 @@ import { getDetailsAPI } from "../../config";
 import Videos from "../../components/content/videos";
 import Episodes from "../../components/content/Episodes";
 import Reviews from "../../components/content/reviews";
+import Recommendation from "../../components/content/recommendations";
+import Stats from "../../components/content/stats";
 
 export default function Details() {
     const params = useParams();
@@ -14,12 +16,20 @@ export default function Details() {
         setContent(index);
     };
 
+    const scrollTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
     useEffect(() => {
         let mounted = true;
-        switchContent(4);
+        switchContent(5);
         getDetailsAPI(params.id).then((result) => {
             if (mounted) {
                 setData(result.data);
+                scrollTop();
             } else {
                 return;
             }
@@ -319,15 +329,15 @@ export default function Details() {
                     </button>
                 </div>
                 <div className="container mx-auto min-h-fit">
-                    <div className={content === 1 ? "block" : "hidden"}>
-                        <Videos></Videos>
+                    <div>{content === 1 ? <Videos></Videos> : null}</div>
+                    <div>{content === 2 ? <Episodes></Episodes> : null}</div>
+                    <div>{content === 3 ? <Reviews></Reviews> : null}</div>
+                    <div>
+                        {content === 4 ? (
+                            <Recommendation></Recommendation>
+                        ) : null}
                     </div>
-                    <div className={content === 2 ? "block" : "hidden"}>
-                        <Episodes></Episodes>
-                    </div>
-                    <div className={content === 3 ? "block" : "hidden"}>
-                        <Reviews></Reviews>
-                    </div>
+                    <div>{content === 5 ? <Stats></Stats> : null}</div>
                 </div>
             </div>
         </div>

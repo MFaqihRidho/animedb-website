@@ -14,13 +14,25 @@ const initialState = {
     dark: false,
 };
 const rootReducer = (state = initialState, action) => {
-    if (action.type === "LOADING_HERO") {
+    if (action.type === "LOADING_HERO_TRUE") {
+        return {
+            ...state,
+            heroLoading: true,
+        };
+    }
+    if (action.type === "LOADING_HERO_FALSE") {
         return {
             ...state,
             heroLoading: false,
         };
     }
-    if (action.type === "LOADING_CARD") {
+    if (action.type === "LOADING_CARD_TRUE") {
+        return {
+            ...state,
+            cardLoading: true,
+        };
+    }
+    if (action.type === "LOADING_CARD_FALSE") {
         return {
             ...state,
             cardLoading: false,

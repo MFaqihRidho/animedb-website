@@ -21,7 +21,7 @@ export default function Episodes() {
         <div className="flex flex-col items-start w-full pt-10">
             {data?.length !== 0 ? (
                 data.map((data) => (
-                    <div className="text-2xl py-2 grid grid-cols-[0.5fr,0.5fr,1fr,1fr]">
+                    <div className="text-2xl py-2 grid grid-cols-[0.5fr,0.5fr,1.5fr,1fr]">
                         <p className="min-w-[10ch]">Episode : {data.mal_id}</p>
                         <p className="min-w-[30ch] max-w-[35ch] max-w text-ellipsis whitespace-nowrap overflow-hidden">
                             Title :{" "}
@@ -34,7 +34,7 @@ export default function Episodes() {
                                 {data.title}
                             </a>
                         </p>
-                        <p className="px-10">
+                        <p className="px-10 max-w-fit text-ellipsis whitespace-nowrap overflow-hidden">
                             Aired : {data.aired ? data.aired : "NA"}
                         </p>
                         <p>

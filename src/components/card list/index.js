@@ -16,9 +16,10 @@ export default function CardList(props) {
     };
 
     useEffect(() => {
+        dispatch({ type: "LOADING_CARD_TRUE" });
         props.api.then((result) => {
             setData(result.data);
-            dispatch({ type: "LOADING_CARD" });
+            dispatch({ type: "LOADING_CARD_FALSE" });
         });
     }, []);
 

@@ -12,9 +12,10 @@ export default function Hero() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch({ type: "LOADING_HERO_TRUE" });
         getUpcomingAPI().then((result) => {
             setData(result.data);
-            dispatch({ type: "LOADING_HERO" });
+            dispatch({ type: "LOADING_HERO_FALSE" });
         });
     }, []);
 

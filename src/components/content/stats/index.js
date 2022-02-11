@@ -1,0 +1,86 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getStatAPI } from "../../../config";
+
+export default function Stats() {
+    const params = useParams();
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        let mounted = true;
+        getStatAPI(params.id).then((result) => {
+            if (mounted) {
+                setData(result.data);
+            } else {
+                return;
+            }
+        });
+        return () => (mounted = false);
+    }, [params.id]);
+    return (
+        <div className="flex">
+            {data?.length !== 0 ? (
+                <div>
+                    <div className="py-10 flex flex-col gap-2">
+                        <h1 className="text-3xl font-bold mb-3">
+                            Summary Stats
+                        </h1>
+                        <p className="text-xl font-bold">
+                            Watching :{" "}
+                            <span className="font-normal">
+                                {data?.watching
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                        </p>
+                        <p className="text-xl font-bold">
+                            Completed :{" "}
+                            <span className="font-normal">
+                                {data?.completed
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                        </p>
+                        <p className="text-xl font-bold">
+                            On-Hold :{" "}
+                            <span className="font-normal">
+                                {data?.on_hold
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                        </p>
+                        <p className="text-xl font-bold">
+                            Dropped :{" "}
+                            <span className="font-normal">
+                                {data?.dropped
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                        </p>
+                        <p className="text-xl font-bold">
+                            Plan to Watch :{" "}
+                            <span className="font-normal">
+                                {data?.plan_to_watch
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                        </p>
+                        <p className="text-xl font-bold">
+                            Total :{" "}
+                            <span className="font-normal">
+                                {data?.total
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                        </p>
+                    </div>
+                    <div className="py-10 flex flex-col gap-2">
+                        <h1>Scored Stats</h1>
+                    </div>
+                </div>
+            ) : (
+                <h1 className="text-3xl">Not Available</h1>
+            )}
+        </div>
+    );
+}

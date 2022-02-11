@@ -39,3 +39,15 @@ export const getReviewsAPI = (id) => {
         res.json().then((results) => Promise.resolve(results))
     );
 };
+
+export const getRecommendationsAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/recommendations`).then(
+        (res) => res.json().then((results) => Promise.resolve(results))
+    );
+};
+
+export const getStatAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/statistics`).then(
+        (res) => res.json().then((results) => Promise.resolve(results))
+    );
+};
