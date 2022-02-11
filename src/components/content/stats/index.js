@@ -18,10 +18,10 @@ export default function Stats() {
         return () => (mounted = false);
     }, [params.id]);
     return (
-        <div className="flex">
+        <div className="">
             {data?.length !== 0 ? (
-                <div>
-                    <div className="pt-10 flex flex-col gap-2">
+                <div className="flex justify-between w-full">
+                    <div className="pt-10 flex flex-col gap-2 w-full">
                         <h1 className="text-3xl font-bold mb-3">
                             Summary Stats
                         </h1>
@@ -74,7 +74,7 @@ export default function Stats() {
                             </span>
                         </p>
                     </div>
-                    <div className="py-10 flex flex-col gap-2">
+                    <div className="pt-10 flex flex-col gap-2">
                         <h1 className="text-3xl font-bold mb-3">
                             Scored Stats
                         </h1>
