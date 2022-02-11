@@ -62,3 +62,9 @@ export const getStaffAPI = (id) => {
         res.json().then((results) => Promise.resolve(results))
     );
 };
+
+export const getMoreInfoAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/moreinfo`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};

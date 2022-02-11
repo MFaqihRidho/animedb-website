@@ -7,6 +7,7 @@ import Reviews from "../../components/content/reviews";
 import Recommendation from "../../components/content/recommendations";
 import Stats from "../../components/content/stats";
 import Character_Staff from "../../components/content/character & staff";
+import More_Info from "../../components/content/more info";
 
 export default function Details() {
     const params = useParams();
@@ -26,7 +27,7 @@ export default function Details() {
 
     useEffect(() => {
         let mounted = true;
-        switchContent(6);
+        switchContent(7);
         getDetailsAPI(params.id).then((result) => {
             if (mounted) {
                 setData(result.data);
@@ -344,6 +345,7 @@ export default function Details() {
                             <Character_Staff></Character_Staff>
                         ) : null}
                     </div>
+                    <div>{content === 7 ? <More_Info></More_Info> : null}</div>
                 </div>
             </div>
         </div>
