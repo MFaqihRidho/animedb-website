@@ -51,3 +51,14 @@ export const getStatAPI = (id) => {
         (res) => res.json().then((results) => Promise.resolve(results))
     );
 };
+
+export const getCharactersAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/characters`).then(
+        (res) => res.json().then((results) => Promise.resolve(results))
+    );
+};
+export const getStaffAPI = (id) => {
+    return fetch(`https://api.jikan.moe/v4/anime/${id}/staff`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};

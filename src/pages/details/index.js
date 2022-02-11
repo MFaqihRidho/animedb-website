@@ -6,6 +6,7 @@ import Episodes from "../../components/content/Episodes";
 import Reviews from "../../components/content/reviews";
 import Recommendation from "../../components/content/recommendations";
 import Stats from "../../components/content/stats";
+import Character_Staff from "../../components/content/character & staff";
 
 export default function Details() {
     const params = useParams();
@@ -25,7 +26,7 @@ export default function Details() {
 
     useEffect(() => {
         let mounted = true;
-        switchContent(5);
+        switchContent(6);
         getDetailsAPI(params.id).then((result) => {
             if (mounted) {
                 setData(result.data);
@@ -338,6 +339,11 @@ export default function Details() {
                         ) : null}
                     </div>
                     <div>{content === 5 ? <Stats></Stats> : null}</div>
+                    <div>
+                        {content === 6 ? (
+                            <Character_Staff></Character_Staff>
+                        ) : null}
+                    </div>
                 </div>
             </div>
         </div>

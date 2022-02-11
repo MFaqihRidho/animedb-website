@@ -21,7 +21,7 @@ export default function Stats() {
         <div className="flex">
             {data?.length !== 0 ? (
                 <div>
-                    <div className="py-10 flex flex-col gap-2">
+                    <div className="pt-10 flex flex-col gap-2">
                         <h1 className="text-3xl font-bold mb-3">
                             Summary Stats
                         </h1>
@@ -75,11 +75,47 @@ export default function Stats() {
                         </p>
                     </div>
                     <div className="py-10 flex flex-col gap-2">
-                        <h1>Scored Stats</h1>
+                        <h1 className="text-3xl font-bold mb-3">
+                            Scored Stats
+                        </h1>
+                        <div className="flex flex-col gap-3 w-full">
+                            {data?.scores !== 0 ? (
+                                data?.scores
+                                    .slice(0)
+                                    .reverse()
+                                    .map((data) => (
+                                        <div
+                                            className={`grid grid-cols-[1fr,40fr] items-center gap-3 w-full`}
+                                        >
+                                            <p>{data.score}</p>
+                                            <div className="flex flex-row items-center gap-2">
+                                                <div
+                                                    style={{
+                                                        width: `${data.percentage}%`,
+                                                    }}
+                                                    className={`h-3  bg-light_secondary dark:bg-dark_secondary`}
+                                                ></div>
+                                                <p className="whitespace-nowrap">
+                                                    {data.percentage}% : (
+                                                    {data.votes
+                                                        .toString()
+                                                        .replace(
+                                                            /\B(?=(\d{3})+(?!\d))/g,
+                                                            ","
+                                                        )}
+                                                    votes)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))
+                            ) : (
+                                <h1 className="text-3xl ">Not Available</h1>
+                            )}
+                        </div>
                     </div>
                 </div>
             ) : (
-                <h1 className="text-3xl">Not Available</h1>
+                <h1 className="text-3xl ">Not Available</h1>
             )}
         </div>
     );
