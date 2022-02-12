@@ -10,6 +10,23 @@ export const getSeasonAPI = (year, season) => {
     );
 };
 
+export const getTodayAPI = () => {
+    const weekday = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+    const d = new Date();
+    let day = weekday[d.getDay()];
+    return fetch(`https://api.jikan.moe/v4/schedules?filter=${day}`).then(
+        (res) => res.json().then((results) => Promise.resolve(results))
+    );
+};
+
 export const getRandomAPI = () => {
     return fetch(`https://api.jikan.moe/v4/random/anime`).then((res) =>
         res.json().then((results) => Promise.resolve(results))

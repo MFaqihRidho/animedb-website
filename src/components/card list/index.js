@@ -49,7 +49,7 @@ export default function CardList(props) {
                                 <img
                                     src={data.images.jpg.large_image_url}
                                     alt=""
-                                    className="min-w-full min-h-full rounded-xl"
+                                    className="object-cover w-56 h-80 rounded-xl"
                                 />
                                 <p
                                     className={`text-center mx-auto overflow-hidden max-w-superMini text-ellipsis whitespace-nowrap md:max-w-mini lg:whitespace-normal sm:text-black sm:dark:text-white lg:text-white lg:dark:text-black text-sm md:text-lg lg:text-xl font-semibold`}

@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReviewsAPI } from "../../../config";
+import { useSelector, useDispatch } from "react-redux";
+import ContentLoading from "../../content loading";
 
 export default function Reviews() {
     const params = useParams();
     const [data, setData] = useState([]);
+    const loading = useSelector((state) => state.contentLoading);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let mounted = true;
+        dispatch({ type: "LOADING_CONTENT_TRUE" });
         getReviewsAPI(params.id).then((result) => {
             if (mounted) {
                 setData(result.data);
+                dispatch({ type: "LOADING_CONTENT_FALSE" });
             } else {
                 return;
             }
@@ -20,7 +26,9 @@ export default function Reviews() {
 
     return (
         <div className="flex flex-col gap-10 pt-10">
-            {data?.length !== 0 ? (
+            {loading ? (
+                <ContentLoading></ContentLoading>
+            ) : data?.length !== 0 ? (
                 data?.map((data) => (
                     <div className="grid grid-cols-[1fr,8fr] gap-5">
                         <img

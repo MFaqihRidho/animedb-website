@@ -9,6 +9,7 @@ import Recommendation from "../../components/content/recommendations";
 import Stats from "../../components/content/stats";
 import Character_Staff from "../../components/content/character & staff";
 import More_Info from "../../components/content/more info";
+import DetailsLoading from "../../components/details loading";
 
 export default function Details() {
     const params = useParams();
@@ -46,33 +47,7 @@ export default function Details() {
     return (
         <div className="w-full min-h-screen text-gray-700 dark:text-gray-200">
             {loading ? (
-                <div>
-                    <div className="w-full animate-pulse transition-all duration-300 h-96 bg-light_secondary dark:bg-dark_secondary"></div>
-                    <div className="w-full animate-pulse transition-all duration-300 h-fit bg-light_primary dark:bg-dark_primary ">
-                        <div className="container flex flex-col px-5 pb-10 mx-auto">
-                            <div className="flex flex-col items-center md:flex-row md:items-start md:gap-10">
-                                <div className="md:-mt-28 -mt-44 w-56 xl:w-72 h-80 bg-light_secondary dark:bg-dark_secondary rounded-2xl "></div>
-                                <div className="md:-mt-10 flex flex-col md:w-2/3 lg:w-[75%] xl:w-full gap-7">
-                                    <div className="md:bg-light_primary bg-light_secondary dark:bg-dark_secondary w-44 h-7 md:dark:bg-dark_primary"></div>
-                                    <div className="flex md:flex-col lg:flex-row md:gap-5 lg:gap-10 justify-between">
-                                        <div className="bg-light_secondary md:order-2 lg:order-1 w-44 h-7 dark:bg-dark_secondary"></div>
-                                        <div className="flex md:order-1 lg:order-2 gap-10">
-                                            <div className="w-44 bg-light_secondary h-7 dark:bg-dark_secondary"></div>
-                                            <div className="w-44 bg-light_secondary h-7 dark:bg-dark_secondary"></div>
-                                            <div className="w-44 bg-light_secondary h-7 dark:bg-dark_secondary"></div>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col gap-5">
-                                        <div className="bg-light_secondary w-full h-5 dark:bg-dark_secondary"></div>
-                                        <div className="bg-light_secondary w-full h-5 dark:bg-dark_secondary"></div>
-                                        <div className="bg-light_secondary w-full h-5 dark:bg-dark_secondary"></div>
-                                        <div className="bg-light_secondary w-full h-5 dark:bg-dark_secondary"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <DetailsLoading></DetailsLoading>
             ) : (
                 <div>
                     <div>

@@ -12,6 +12,7 @@ const initialState = {
     heroLoading: true,
     cardLoading: true,
     detailsLoading: true,
+    contentLoading: true,
     dark: false,
 };
 const rootReducer = (state = initialState, action) => {
@@ -25,6 +26,18 @@ const rootReducer = (state = initialState, action) => {
         return {
             ...state,
             heroLoading: false,
+        };
+    }
+    if (action.type === "LOADING_CONTENT_TRUE") {
+        return {
+            ...state,
+            contentLoading: true,
+        };
+    }
+    if (action.type === "LOADING_CONTENT_FALSE") {
+        return {
+            ...state,
+            contentLoading: false,
         };
     }
     if (action.type === "LOADING_DETAILS_TRUE") {
