@@ -52,14 +52,14 @@ export default function Navbar() {
         <nav className="h-16 py-3 transition-all duration-300 bg-light_primary dark:bg-dark_primary">
             <div
                 ref={menuRef}
-                className="container flex justify-between mx-auto text-gray-700 dark:text-gray-200 px-5"
+                className="container flex justify-between px-5 mx-auto text-gray-700 dark:text-gray-200"
             >
                 <div className="hidden md:block">
                     <h1 className="text-2xl font-bold ">Anime Finder</h1>
                 </div>
                 <div
                     onClick={toggleDropDown}
-                    className="sm:hidden cursor-pointer"
+                    className="cursor-pointer sm:hidden"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -76,15 +76,15 @@ export default function Navbar() {
                         />
                     </svg>
                 </div>
-                <div className="gap-5 mt-1 hidden sm:flex">
+                <div className="hidden gap-5 mt-1 sm:flex">
                     <Link className="text-xl font-medium " to="/">
                         Home
                     </Link>
                     <Link className="text-xl font-medium " to="anime">
                         Anime
                     </Link>
-                    <Link className="text-xl font-medium " to="manga">
-                        Manga
+                    <Link className="text-xl font-medium " to="about">
+                        About
                     </Link>
                 </div>
                 <div class="flex items-center h-9 w-1/2 md:w-1/4 bg-white dark:bg-gray-500 rounded-lg transition-all duration-300">

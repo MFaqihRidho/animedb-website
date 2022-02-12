@@ -26,9 +26,9 @@ export default function MobileNav(props) {
                 <Link
                     onClick={props.onClick}
                     className="text-3xl font-semibold "
-                    to="manga"
+                    to="About"
                 >
-                    Manga
+                    About
                 </Link>
             </div>
         </div>

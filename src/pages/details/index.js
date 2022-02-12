@@ -14,9 +14,16 @@ import DetailsLoading from "../../components/details loading";
 export default function Details() {
     const params = useParams();
     const [data, setData] = useState([]);
-    const loading = useSelector((state) => state.detailsLoading);
     const [content, setContent] = useState(0);
+    const [contentNav, setContentNav] = useState(false);
+    const loading = useSelector((state) => state.detailsLoading);
+
     const dispatch = useDispatch();
+
+    const toggleContentNav = () => {
+        setContentNav(!contentNav);
+        console.log(contentNav);
+    };
 
     const switchContent = (index) => {
         setContent(index);
@@ -290,7 +297,7 @@ export default function Details() {
                         </div>
                     </div>
                     <div className="w-full px-5 py-10 min-h-fit">
-                        <div className="container flex justify-between w-full mx-auto">
+                        <div className="container flex flex-row justify-between w-full mx-auto">
                             <button
                                 onClick={() => switchContent(1)}
                                 className={`uppercase border-b-4 border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
@@ -361,6 +368,15 @@ export default function Details() {
                             >
                                 More Info
                             </button>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-7 h-7 lg:hidden"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                onClick={toggleContentNav}
+                            >
+                                <path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8zM12 15a1 1 0 100-2H6.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 15H12z" />
+                            </svg>
                         </div>
                         <div className="container mx-auto min-h-fit">
                             <div>

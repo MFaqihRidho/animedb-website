@@ -24,7 +24,7 @@ export default function CardList(props) {
     }, []);
 
     return (
-        <div className="w-full pt-2 transition-all duration-300 bg-white dark:bg-black min-h-fit">
+        <div className="w-full px-3 pt-2 transition-all duration-300 bg-white md:px-5 dark:bg-black min-h-fit">
             <div className="container mx-auto text-gray-700 dark:text-gray-200">
                 {" "}
                 <div className="flex items-center justify-between mb-3 px-7 md:px-0">
@@ -39,7 +39,7 @@ export default function CardList(props) {
                 {loading === true ? (
                     <CardLoading></CardLoading>
                 ) : (
-                    <div className="grid grid-cols-3 gap-3 py-5 px-7 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
+                    <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                         {data.slice(0, 5).map((data) => (
                             <div
                                 id={data.mal_id}
@@ -49,7 +49,7 @@ export default function CardList(props) {
                                 <img
                                     src={data.images.jpg.large_image_url}
                                     alt=""
-                                    className="object-cover w-56 h-80 rounded-xl"
+                                    className="object-cover w-full h-36 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                 />
                                 <p
                                     className={`text-center mx-auto overflow-hidden max-w-superMini text-ellipsis whitespace-nowrap md:max-w-mini lg:whitespace-normal sm:text-black sm:dark:text-white lg:text-white lg:dark:text-black text-sm md:text-lg lg:text-xl font-semibold`}

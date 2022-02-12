@@ -31,11 +31,11 @@ export default function Recommendation() {
         return () => (mounted = false);
     }, [params.id]);
     return (
-        <div className="py-5">
+        <div className="pt-10 pb-5">
             {loading === true ? (
                 <CardLoading></CardLoading>
             ) : (
-                <div className="grid grid-cols-3 gap-3 py-5 px-7 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
+                <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                     {data?.length !== 0 ? (
                         data.slice(0, 15).map((data) => (
                             <div
@@ -48,7 +48,7 @@ export default function Recommendation() {
                                         data?.entry?.images.jpg.large_image_url
                                     }
                                     alt=""
-                                    className="h-80 w-56 object-cover rounded-xl"
+                                    className="object-cover w-full h-32 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                 />
                                 <p
                                     className={`text-center mx-auto overflow-hidden max-w-superMini text-ellipsis whitespace-nowrap md:max-w-mini lg:whitespace-normal sm:text-black sm:dark:text-white lg:text-white lg:dark:text-black text-sm md:text-lg lg:text-xl font-semibold`}

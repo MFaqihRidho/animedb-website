@@ -48,7 +48,7 @@ export default function Footer() {
                     Powered By{" "}
                     <a
                         href="https://jikan.moe"
-                        className="border-b-2"
+                        className="underline decoration-white underline-offset-1 decoration-2"
                         target="_blank"
                         rel="noreferrer"
                         className="text-gray-700 dark:text-gray-200"
