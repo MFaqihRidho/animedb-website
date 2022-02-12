@@ -29,9 +29,9 @@ export default function Videos() {
                 <ContentLoading></ContentLoading>
             ) : data?.promo?.length !== 0 ? (
                 data?.promo?.map((data) => (
-                    <div>
+                    <div className="flex flex-col px-5">
                         <p className="py-5 text-3xl">{data.title}</p>
-                        <div className="iframe-container rounded-xl overflow-hidden w-full h-[45rem] relative">
+                        <div className="relative w-[80rem] h-[45rem] md: overflow-hidden iframe-container rounded-xl">
                             <iframe
                                 src={data?.trailer?.embed_url}
                                 frameborder="0"
