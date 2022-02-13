@@ -95,17 +95,17 @@ export default function Stats() {
                                         <div
                                             className={`grid grid-cols-[1fr,40fr] items-center gap-3 w-full`}
                                         >
-                                            <p>{data.score}</p>
+                                            <p>{data?.score}</p>
                                             <div className="flex flex-row items-center gap-2">
                                                 <div
                                                     style={{
-                                                        width: `${data.percentage}%`,
+                                                        width: `${data?.percentage}%`,
                                                     }}
                                                     className={`h-3  bg-light_secondary dark:bg-dark_secondary`}
                                                 ></div>
                                                 <p className="whitespace-nowrap">
-                                                    {data.percentage}% : (
-                                                    {data.votes
+                                                    {data?.percentage}% : (
+                                                    {data?.votes
                                                         .toString()
                                                         .replace(
                                                             /\B(?=(\d{3})+(?!\d))/g,

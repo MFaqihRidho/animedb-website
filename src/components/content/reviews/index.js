@@ -46,10 +46,10 @@ export default function Reviews() {
                                     {data?.user?.username}
                                 </h5>
                                 <p className="pt-1 text-lg text-gray-500 ">
-                                    {data.date}
+                                    {data?.date}
                                 </p>
                             </div>
-                            <p>{data.review}</p>
+                            <p>{data?.review}</p>
                         </div>
                     </div>
                 ))

@@ -41,7 +41,7 @@ export default function Character_Staff() {
                     <h1 className="text-4xl font-bold text-center">
                         Characters
                     </h1>
-                    {character.length !== 0 ? (
+                    {character?.length !== 0 ? (
                         character?.map((data) => (
                             <div className="flex justify-between gap-5 overflow-hidden border-4 border-gray-700 lg:flex dark:border-gray-200 rounded-2xl">
                                 <div className="flex flex-col self-start text-2xl">
@@ -54,13 +54,13 @@ export default function Character_Staff() {
                                         alt=""
                                     />
                                     <div className="py-3 text-center">
-                                        <p>{data.character.name}</p>
-                                        <p>{data.role}</p>
+                                        <p>{data?.character.name}</p>
+                                        <p>{data?.role}</p>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-7">
                                     {data?.voice_actors.length !== 0
-                                        ? data.voice_actors.map((data) => (
+                                        ? data?.voice_actors.map((data) => (
                                               <div className="flex flex-row justify-end gap-3">
                                                   <div className="py-3 text-center">
                                                       <p>
@@ -88,18 +88,18 @@ export default function Character_Staff() {
                     <h1 className="text-4xl font-bold text-center">Staff</h1>
                     <div className="flex flex-col gap-10">
                         {staff?.length !== 0 ? (
-                            staff.map((data) => (
+                            staff?.map((data) => (
                                 <div className="flex pr-4 overflow-hidden border-2 rounded-xl">
                                     <img
                                         className="object-cover w-20 h-28"
-                                        src={data.person.images.jpg.image_url}
+                                        src={data?.person.images.jpg.image_url}
                                         alt=""
                                     />
                                     <div className="px-3 py-3">
                                         <p>{data?.person?.name}</p>
                                         <p>
                                             {data?.divositions?.length !== 0
-                                                ? data.positions
+                                                ? data?.positions
                                                       .map((data) => data)
                                                       .join(",")
                                                 : null}

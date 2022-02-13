@@ -37,7 +37,7 @@ export default function Recommendation() {
             ) : (
                 <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                     {data?.length !== 0 ? (
-                        data.slice(0, 15).map((data) => (
+                        data?.slice(0, 15).map((data) => (
                             <div
                                 id={data?.entry?.mal_id}
                                 onClick={handleClickEvent}

@@ -104,8 +104,8 @@ export default function Details() {
                                             </p>
                                         </div>
                                         <p className="font-normal dark:font-light ">
-                                            {data.scored_by
-                                                ? ` ${data.scored_by
+                                            {data?.scored_by
+                                                ? ` ${data?.scored_by
                                                       .toString()
                                                       .replace(
                                                           /\B(?=(\d{3})+(?!\d))/g,
@@ -117,7 +117,7 @@ export default function Details() {
                                 </div>
                                 <div className="w-full px-7 md:-mt-16 ">
                                     <h1 className="relative mt-5 text-2xl font-bold text-center md:whitespace-nowrap md:overflow-hidden md:text-ellipsis md:text-3xl md:text-left md:max-w-read lg:max-w-full ">
-                                        {data.title}
+                                        {data?.title}
                                     </h1>
                                     <div className="flex flex-col justify-between w-full pt-5 lg:flex-row">
                                         <div className="order-2 mt-3 md:mt-0 lg:order-1">
@@ -129,24 +129,24 @@ export default function Details() {
                                             <h3 className="flex gap-1 text-xl font-bold">
                                                 Ranked:{""}
                                                 <p className="font-normal">
-                                                    {data.rank
-                                                        ? `#${data.rank}`
+                                                    {data?.rank
+                                                        ? `#${data?.rank}`
                                                         : " NA"}
                                                 </p>
                                             </h3>
                                             <h3 className="flex gap-1 text-xl font-bold">
                                                 Popularity: {}
                                                 <p className="font-normal">
-                                                    {data.popularity
-                                                        ? `#${data.popularity}`
+                                                    {data?.popularity
+                                                        ? `#${data?.popularity}`
                                                         : " NA"}
                                                 </p>
                                             </h3>
                                             <h3 className="flex gap-1 text-xl font-bold">
                                                 Members: {}
                                                 <p className="font-normal">
-                                                    {data.members
-                                                        ? data.members
+                                                    {data?.members
+                                                        ? data?.members
                                                               .toString()
                                                               .replace(
                                                                   /\B(?=(\d{3})+(?!\d))/g,
@@ -157,8 +157,8 @@ export default function Details() {
                                             </h3>
                                         </div>
                                     </div>
-                                    <p className="pt-3 md:pr-5 lg:max-w-full lg:min-h-[18rem] xl:min-h-[7rem] md:max-w-synopsis lg:pr-0 text-justify	 md:text-left text-md">
-                                        {data.synopsis}
+                                    <p className="pt-3 md:pr-5 lg:max-w-full lg:min-h-[18rem] xl:min-h-[7rem] md:max-w-synopsis lg:pr-0 text-justify mx-auto self-center md:text-left text-md">
+                                        {data?.synopsis}
                                     </p>
                                 </div>
                             </div>
@@ -168,15 +168,15 @@ export default function Details() {
 
                                     <div className="flex items-end font-bold">
                                         <p className="text-5xl">
-                                            {data.score
-                                                ? Math.floor(data.score)
+                                            {data?.score
+                                                ? Math.floor(data?.score)
                                                 : "NA"}
                                         </p>
                                         <p className="text-3xl">
-                                            {data.score
+                                            {data?.score
                                                 ? (
-                                                      data.score -
-                                                      Math.floor(data.score)
+                                                      data?.score -
+                                                      Math.floor(data?.score)
                                                   )
                                                       .toFixed(2)
                                                       .toString()
@@ -185,8 +185,8 @@ export default function Details() {
                                         </p>
                                     </div>
                                     <p className="font-normal dark:font-light ">
-                                        {data.scored_by
-                                            ? ` ${data.scored_by
+                                        {data?.scored_by
+                                            ? ` ${data?.scored_by
                                                   .toString()
                                                   .replace(
                                                       /\B(?=(\d{3})+(?!\d))/g,
@@ -200,57 +200,64 @@ export default function Details() {
                                         <p className="flex gap-1 font-bold">
                                             Type :
                                             <p className="font-normal dark:font-light">
-                                                {data.type
-                                                    ? data.type
+                                                {data?.type
+                                                    ? data?.type
                                                     : "unknown"}
                                             </p>
                                         </p>
                                         <p className="flex gap-1 font-bold">
                                             Episode :
                                             <p className="font-normal dark:font-light">
-                                                {data.episodes
-                                                    ? data.episodes
+                                                {data?.episodes
+                                                    ? data?.episodes
                                                     : "unknown"}
                                             </p>
                                         </p>
                                         <p className="gap-1 font-bold text-center md:flex">
                                             Genre :
                                             <p className="font-normal dark:font-light">
-                                                {data.genres
-                                                    ? data.genres
+                                                {data?.genres
+                                                    ? data?.genres
                                                           .map(
                                                               (data) =>
-                                                                  data.name
+                                                                  data?.name
                                                           )
                                                           .join(",")
                                                     : "unknown"}
-                                                {data.themes
-                                                    ? data.themes.map(
-                                                          (data) =>
-                                                              `,${data.name}`
-                                                      )
+                                            </p>
+                                        </p>
+                                        <p className="gap-1 font-bold text-center md:flex">
+                                            Theme :
+                                            <p className="font-normal dark:font-light">
+                                                {data?.themes
+                                                    ? data?.themes
+                                                          .map(
+                                                              (data) =>
+                                                                  data?.name
+                                                          )
+                                                          .join(",")
                                                     : "unknown"}
                                             </p>
                                         </p>
                                         <p className="flex gap-1 font-bold">
                                             Duration :
                                             <p className="font-normal dark:font-light">
-                                                {data.duration
-                                                    ? data.duration
-                                                    : "unknown"}
-                                            </p>
-                                        </p>
-                                        <p className="flex gap-1 font-bold">
-                                            Status :
-                                            <p className="font-normal dark:font-light">
-                                                {data.status
-                                                    ? data.status
+                                                {data?.duration
+                                                    ? data?.duration
                                                     : "unknown"}
                                             </p>
                                         </p>
                                     </div>
                                     <div className="w-full  bg-gray-700 dark:bg-gray-200 h-[1px]"></div>
                                     <div className="flex flex-col items-center justify-center w-full gap-4 p-5 xl:flex-row">
+                                        <p className="flex gap-1 font-bold">
+                                            Status :
+                                            <p className="font-normal dark:font-light">
+                                                {data?.status
+                                                    ? data?.status
+                                                    : "unknown"}
+                                            </p>
+                                        </p>
                                         <p className="flex gap-1 font-bold">
                                             Aired :
                                             <p className="font-normal dark:font-light">
@@ -261,7 +268,7 @@ export default function Details() {
                                             Broadcast :
                                             <p className="font-normal dark:font-light">
                                                 {data?.broadcast?.string
-                                                    ? data.broadcast.string
+                                                    ? data?.broadcast.string
                                                     : "unknown"}
                                             </p>
                                         </p>
@@ -272,11 +279,11 @@ export default function Details() {
                                                 className="font-normal dark:font-light"
                                             >
                                                 {data?.studios
-                                                    ? data.studios.length !== 0
-                                                        ? data.studios
+                                                    ? data?.studios.length !== 0
+                                                        ? data?.studios
                                                               .map(
                                                                   (data) =>
-                                                                      data.name
+                                                                      data?.name
                                                               )
                                                               .join(",")
                                                         : "unknown"
@@ -286,8 +293,8 @@ export default function Details() {
                                         <p className="flex gap-1 font-bold">
                                             Rating :
                                             <p className="font-normal dark:font-light">
-                                                {data.rating
-                                                    ? data.rating
+                                                {data?.rating
+                                                    ? data?.rating
                                                     : "unknown"}
                                             </p>
                                         </p>
@@ -297,10 +304,10 @@ export default function Details() {
                         </div>
                     </div>
                     <div className="w-full px-5 py-10 min-h-fit">
-                        <div className="container flex flex-row justify-between w-full mx-auto">
+                        <div className="container flex flex-row justify-around md:justify-between w-full mx-auto">
                             <button
                                 onClick={() => switchContent(1)}
-                                className={`uppercase border-b-4 ${
+                                className={`uppercase border-b-4${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
                                     content === 1
@@ -312,7 +319,7 @@ export default function Details() {
                             </button>
                             <button
                                 onClick={() => switchContent(2)}
-                                className={`uppercase border-b-4 ${
+                                className={`uppercase border-b-4 hidden ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
                                     content === 2
@@ -324,7 +331,7 @@ export default function Details() {
                             </button>
                             <button
                                 onClick={() => switchContent(3)}
-                                className={`uppercase border-b-4 ${
+                                className={`uppercase border-b-4 hidden ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 3
@@ -336,7 +343,7 @@ export default function Details() {
                             </button>
                             <button
                                 onClick={() => switchContent(4)}
-                                className={`uppercase border-b-4 ${
+                                className={`uppercase border-b-4 hidden ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 4
@@ -348,7 +355,7 @@ export default function Details() {
                             </button>
                             <button
                                 onClick={() => switchContent(5)}
-                                className={`uppercase border-b-4 ${
+                                className={`uppercase border-b-4 hidden ${
                                     contentNav ? "md:hidden" : "md:block"
                                 } lg:block border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 5
@@ -360,7 +367,7 @@ export default function Details() {
                             </button>
                             <button
                                 onClick={() => switchContent(6)}
-                                className={`uppercase border-b-4 ${
+                                className={`uppercase border-b-4 hidden ${
                                     contentNav ? "md:hidden" : "md:block"
                                 } lg:block border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 6
@@ -372,7 +379,7 @@ export default function Details() {
                             </button>
                             <button
                                 onClick={() => switchContent(7)}
-                                className={`uppercase self-end border-b-4 ${
+                                className={`uppercase self-end border-b-4 hidden ${
                                     contentNav ? "md:hidden" : "md:block"
                                 } lg:block border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 7
@@ -382,15 +389,31 @@ export default function Details() {
                             >
                                 More Info
                             </button>
-                            <button className="mb-2 border-b-4 border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary">
+                            <button className="pb-2 hidden md:block lg:hidden border-b-4 border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className="w-7 h-7 lg:hidden"
+                                    className="w-7 h-7 "
                                     viewBox="0 0 20 20"
                                     fill="currentColor"
                                     onClick={toggleContentNav}
                                 >
                                     <path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8zM12 15a1 1 0 100-2H6.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 15H12z" />
+                                </svg>
+                            </button>
+                            <button className="pb-2 block md:hidden border-b-4 border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-7 w-7"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M4 6h16M4 12h16m-7 6h7"
+                                    />
                                 </svg>
                             </button>
                         </div>
