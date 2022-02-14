@@ -12,11 +12,17 @@ export default function Hero() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let mounted = true;
         dispatch({ type: "LOADING_HERO_TRUE" });
         getUpcomingAPI().then((result) => {
-            setData(result.data);
-            dispatch({ type: "LOADING_HERO_FALSE" });
+            if (mounted) {
+                setData(result.data);
+                dispatch({ type: "LOADING_HERO_FALSE" });
+            } else {
+                return;
+            }
         });
+        return () => (mounted = false);
     }, []);
 
     return (
@@ -43,13 +49,13 @@ export default function Hero() {
                             pagination: false,
                         }}
                     >
-                        {data.map((data) => (
+                        {data?.map((data) => (
                             <SplideSlide>
                                 <div className="flex w-fit md:w-full mx-auto overflow-hidden transition-all duration-300 bg-white h-96 dark:bg-gray-500 rounded-3xl">
-                                    {data.trailer.embed_url ? (
+                                    {data?.trailer.embed_url ? (
                                         <div className="relative hidden xl:block w-2/3 h-full rounded iframe-container">
                                             <iframe
-                                                src={data.trailer.embed_url}
+                                                src={data?.trailer.embed_url}
                                                 frameborder="0"
                                                 className="absolute top-0 bottom-0 w-full h-full"
                                             ></iframe>
@@ -60,18 +66,18 @@ export default function Hero() {
                                         </h1>
                                     )}
 
-                                    {data.images.jpg.large_image_url ? (
+                                    {data?.images.jpg.large_image_url ? (
                                         <a
                                             href={
-                                                data.trailer.url
-                                                    ? data.trailer.url
-                                                    : `https://www.youtube.com/results?search_query=${data.title}`
+                                                data?.trailer.url
+                                                    ? data?.trailer.url
+                                                    : `https://www.youtube.com/results?search_query=${data?.title}`
                                             }
                                             className="block relative xl:hidden"
                                         >
                                             <img
                                                 src={
-                                                    data.images.jpg
+                                                    data?.images.jpg
                                                         .large_image_url
                                                 }
                                                 alt=""
@@ -86,12 +92,12 @@ export default function Hero() {
 
                                     <div className="w-1/2 px-5 py-16 hidden md:block m-auto">
                                         <h3 className="md:text-6xl max-h-[11.5rem] overflow-hidden elipsiss font-semibold">
-                                            {data.title}
+                                            {data?.title}
                                         </h3>
                                         <p className="text-xl max-h-14 truncate ">
-                                            {data.synopsis}
+                                            {data?.synopsis}
                                         </p>
-                                        <p className="text-xl">{data.type}</p>
+                                        <p className="text-xl">{data?.type}</p>
                                         <div className="relative bottom-0 flex">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -108,15 +114,15 @@ export default function Hero() {
                                                 />
                                             </svg>
                                             <p className="px-2 text-xl">
-                                                {data.aired.from
-                                                    ? `${data.aired.prop.from.day}/${data.aired.prop.from.month}/${data.aired.prop.from.year}`
+                                                {data?.aired.from
+                                                    ? `${data?.aired.prop.from.day}/${data?.aired.prop.from.month}/${data?.aired.prop.from.year}`
                                                     : "unknown"}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <h3 className="text-center text-2xl my-3 block md:hidden">
-                                    {data.title}
+                                    {data?.title}
                                 </h3>
                             </SplideSlide>
                         ))}

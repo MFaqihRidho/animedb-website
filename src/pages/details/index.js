@@ -10,6 +10,7 @@ import Stats from "../../components/content/stats";
 import Character_Staff from "../../components/content/character & staff";
 import More_Info from "../../components/content/more info";
 import DetailsLoading from "../../components/details loading";
+import MobileContentNav from "../../components/mobile/mobilenav content";
 
 export default function Details() {
     const params = useParams();
@@ -27,6 +28,7 @@ export default function Details() {
 
     const switchContent = (index) => {
         setContent(index);
+        console.log(content);
     };
 
     const scrollTop = () => {
@@ -307,84 +309,84 @@ export default function Details() {
                         <div className="container flex flex-row justify-around md:justify-between w-full mx-auto">
                             <button
                                 onClick={() => switchContent(1)}
-                                className={`uppercase border-b-4${
+                                className={`uppercase border-b-4 ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
                                     content === 1
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 Videos
                             </button>
                             <button
                                 onClick={() => switchContent(2)}
-                                className={`uppercase border-b-4 hidden ${
+                                className={`uppercase border-b-4 ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary pb-2 ${
                                     content === 2
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 Episodes
                             </button>
                             <button
                                 onClick={() => switchContent(3)}
-                                className={`uppercase border-b-4 hidden ${
+                                className={`uppercase border-b-4 ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 3
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 Reviews
                             </button>
                             <button
                                 onClick={() => switchContent(4)}
-                                className={`uppercase border-b-4 hidden ${
+                                className={`uppercase border-b-4 ${
                                     contentNav ? "md:block" : "md:hidden"
                                 } border-b-transparent hover:border-b-4 lg:block hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 4
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 recommendations
                             </button>
                             <button
                                 onClick={() => switchContent(5)}
-                                className={`uppercase border-b-4 hidden ${
+                                className={`uppercase border-b-4 ${
                                     contentNav ? "md:hidden" : "md:block"
                                 } lg:block border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 5
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 Stats
                             </button>
                             <button
                                 onClick={() => switchContent(6)}
-                                className={`uppercase border-b-4 hidden ${
+                                className={`uppercase border-b-4 ${
                                     contentNav ? "md:hidden" : "md:block"
                                 } lg:block border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 6
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 Character & staff
                             </button>
                             <button
                                 onClick={() => switchContent(7)}
-                                className={`uppercase self-end border-b-4 hidden ${
+                                className={`uppercase self-end border-b-4 ${
                                     contentNav ? "md:hidden" : "md:block"
                                 } lg:block border-b-transparent hover:border-b-4 hover:border-b-light_secondary hover:dark:border-b-dark_secondary  pb-2 ${
                                     content === 7
-                                        ? "border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
-                                        : "border-b-4 border-b-transparent"
+                                        ? "block border-b-4 border-b-light_secondary dark:border-b-dark_secondary"
+                                        : "hidden border-b-4 border-b-transparent"
                                 } font-bold text-xl`}
                             >
                                 More Info
@@ -400,22 +402,15 @@ export default function Details() {
                                     <path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8zM12 15a1 1 0 100-2H6.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 15H12z" />
                                 </svg>
                             </button>
-                            <button className="pb-2 block md:hidden border-b-4 border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-7 w-7"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M4 6h16M4 12h16m-7 6h7"
-                                    />
-                                </svg>
-                            </button>
+                            <MobileContentNav
+                                content1={() => switchContent(1)}
+                                content2={() => switchContent(2)}
+                                content3={() => switchContent(3)}
+                                content4={() => switchContent(4)}
+                                content5={() => switchContent(5)}
+                                content6={() => switchContent(6)}
+                                content7={() => switchContent(7)}
+                            ></MobileContentNav>
                         </div>
                         <div className="container mx-auto min-h-fit">
                             <div>

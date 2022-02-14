@@ -16,11 +16,17 @@ export default function CardList(props) {
     };
 
     useEffect(() => {
+        let mounted = true;
         dispatch({ type: "LOADING_CARD_TRUE" });
         props.api.then((result) => {
-            setData(result.data);
-            dispatch({ type: "LOADING_CARD_FALSE" });
+            if (mounted) {
+                setData(result.data);
+                dispatch({ type: "LOADING_CARD_FALSE" });
+            } else {
+                return;
+            }
         });
+        return () => (mounted = false);
     }, []);
 
     return (
