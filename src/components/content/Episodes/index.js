@@ -24,14 +24,14 @@ export default function Episodes() {
         return () => (mounted = false);
     }, [params.id]);
     return (
-        <div className="flex flex-col items-start w-full pt-10">
+        <div className="flex flex-col items-start w-full pt-10 md:gap-5">
             {loading ? (
                 <ContentLoading></ContentLoading>
             ) : data?.length !== 0 ? (
                 data?.map((data) => (
-                    <div className="text-2xl py-2 grid grid-cols-[0.5fr,0.5fr,1.5fr,1fr]">
+                    <div className="text-2xl py-2 grid md:grid-cols-[1fr,1.5fr,1fr,1.5fr] lg:grid-cols-[0.5fr,0.5fr,1fr,1fr]">
                         <p className="min-w-[10ch]">Episode : {data?.mal_id}</p>
-                        <p className="min-w-[30ch] max-w-[35ch] max-w text-ellipsis whitespace-nowrap overflow-hidden">
+                        <p className="lg:min-w-[30ch] min-w-[13ch] md:max-w-[25ch] lg:max-w-[35ch] max-w text-ellipsis whitespace-nowrap overflow-hidden">
                             Title :{" "}
                             <a
                                 target="_blank"
@@ -42,7 +42,7 @@ export default function Episodes() {
                                 {data?.title}
                             </a>
                         </p>
-                        <p className="px-10 overflow-hidden max-w-fit text-ellipsis whitespace-nowrap">
+                        <p className="overflow-hidden lg:px-10 max-w-fit lg:max-w-fit text-ellipsis whitespace-nowrap">
                             Aired : {data?.aired ? data?.aired : "NA"}
                         </p>
                         <p>

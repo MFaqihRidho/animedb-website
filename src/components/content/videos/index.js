@@ -31,11 +31,12 @@ export default function Videos() {
                 data?.promo?.map((data) => (
                     <div className="flex flex-col">
                         <p className="py-5 text-3xl">{data?.title}</p>
-                        <div className="relative w-[80rem] h-[45rem] md: overflow-hidden iframe-container rounded-xl">
+                        <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
                             <iframe
                                 src={data?.trailer?.embed_url}
                                 frameborder="0"
-                                className="w-full h-full "
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
                             ></iframe>
                         </div>
                     </div>

@@ -9,18 +9,16 @@ export default function MobileContentNav(props) {
         setShowDropDown(!showDropDown);
     };
 
-    const listenToScroll = () => {
-        let heightToHideFrom = 30;
-        const winScroll =
-            document.body.scrollTop || document.documentElement.scrollTop;
-        if (winScroll > heightToHideFrom) {
-            setShowDropDown(false);
-        } else {
-            setShowDropDown(false);
-        }
-    };
-
-    useEffect(() => {}, [showDropDown]);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (showDropDown) {
+                toggleDropDown();
+            } else {
+                return;
+            }
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [showDropDown]);
 
     useEffect(() => {
         if (listening) return;
@@ -36,15 +34,11 @@ export default function MobileContentNav(props) {
         });
     }, [listening]);
 
-    useEffect(() => {
-        window.addEventListener("scroll", listenToScroll);
-    }, []);
-
     return (
         <div ref={menuRef} className={`order-last md:hidden`}>
             <button
                 onClick={toggleDropDown}
-                className="pb-2 block md:hidden border-b-4 border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary"
+                className="block pb-2 border-b-4 md:hidden border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -62,9 +56,9 @@ export default function MobileContentNav(props) {
                 </svg>
             </button>
             {showDropDown ? (
-                <div className="absolute right-20 left-20 mt-5 flex flex-col opacity-100 transition-all duration-300 items-center bg-light_primary dark:bg-dark_primary rounded px-3 py-4 gap-2 z-10">
+                <div className="absolute z-10 flex flex-col items-center px-3 py-4 mt-5 transition-all duration-300 rounded opacity-100 gap-7 right-14 left-14 bg-light_primary dark:bg-dark_primary">
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content1();
                             toggleDropDown();
@@ -73,7 +67,7 @@ export default function MobileContentNav(props) {
                         Videos
                     </p>
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content2();
                             toggleDropDown();
@@ -82,7 +76,7 @@ export default function MobileContentNav(props) {
                         Episodes
                     </p>
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content3();
                             toggleDropDown();
@@ -91,7 +85,7 @@ export default function MobileContentNav(props) {
                         Reviews
                     </p>
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content4();
                             toggleDropDown();
@@ -100,7 +94,7 @@ export default function MobileContentNav(props) {
                         Recommendation
                     </p>
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content5();
                             toggleDropDown();
@@ -109,7 +103,7 @@ export default function MobileContentNav(props) {
                         Stats
                     </p>
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal text-center rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content6();
                             toggleDropDown();
@@ -118,7 +112,7 @@ export default function MobileContentNav(props) {
                         Character & staff
                     </p>
                     <p
-                        className="px-2 text-2xl font-normal"
+                        className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary"
                         onClick={() => {
                             props.content7();
                             toggleDropDown();
@@ -128,13 +122,13 @@ export default function MobileContentNav(props) {
                     </p>
                 </div>
             ) : (
-                <div className="absolute right-20 left-20  mt-3 invisible flex flex-col opacity-0 transition-all duration-300 items-center bg-light_primary dark:bg-dark_primary rounded px-3 py-4 gap-2 z-10">
+                <div className="absolute z-10 flex flex-col items-center invisible px-3 py-4 mt-3 transition-all duration-300 rounded opacity-0 gap-7 right-44 left-44 bg-light_primary dark:bg-dark_primary">
                     <p className="px-2 text-2xl font-normal">Videos</p>
                     <p className="px-2 text-2xl font-normal">Episodes</p>
                     <p className="px-2 text-2xl font-normal">Reviews</p>
                     <p className="px-2 text-2xl font-normal">Recommendation</p>
                     <p className="px-2 text-2xl font-normal">Stats</p>
-                    <p className="px-2 text-2xl font-normal">
+                    <p className="px-2 text-2xl font-normal text-center">
                         Character & staff
                     </p>
                     <p className="px-2 text-2xl font-normal">More Info</p>
