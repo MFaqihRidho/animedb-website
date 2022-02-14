@@ -30,7 +30,7 @@ export default function Reviews() {
                 <ContentLoading></ContentLoading>
             ) : data?.length !== 0 ? (
                 data?.map((data) => (
-                    <div className="grid grid-cols-[1fr,8fr] gap-5">
+                    <div className="grid md:grid-cols-[1fr,5fr] lg:grid-cols-[1fr,8fr] gap-10 md:gap-5">
                         <img
                             className="object-cover border-4 rounded-full border-light_secondary dark:border-dark_secondary w-28 h-28"
                             src={data?.user?.images?.jpg?.image_url}
@@ -38,10 +38,13 @@ export default function Reviews() {
                         />
 
                         <div className="relative px-5 pt-2 pb-4 border-2 border-light_secondary dark:border-dark_secondary rounded-2xl">
-                            <div class="w-10 top-5  -left-10 absolute overflow-hidden  inline-block">
+                            <div class="w-16 -top-11 absolute overflow-hidden md:hidden inline-block">
+                                <div class="h-11 w-11 bg-white rotate-45 border-2 border-light_secondary dark:border-dark_secondary dark:bg-black transform origin-bottom-left"></div>
+                            </div>
+                            <div class="w-10 top-5 -left-10 absolute overflow-hidden hidden md:inline-block">
                                 <div class=" h-16 border-2 border-light_secondary dark:border-dark_secondary bg-white  dark:bg-black  -rotate-45 transform origin-top-right"></div>
                             </div>
-                            <div className="flex py-2">
+                            <div className="flex flex-col py-2 md:flex-row">
                                 <h5 className="pr-2 text-2xl font-bold ">
                                     {data?.user?.username}
                                 </h5>

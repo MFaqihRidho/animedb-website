@@ -28,7 +28,7 @@ export default function Stats() {
             {loading ? (
                 <ContentLoading></ContentLoading>
             ) : data?.length !== 0 ? (
-                <div className="flex justify-between w-full">
+                <div className="flex flex-col justify-between w-full gap-10 md:gap-0 md:flex-row">
                     <div className="flex flex-col w-full gap-2">
                         <h1 className="mb-3 text-3xl font-bold">
                             Summary Stats

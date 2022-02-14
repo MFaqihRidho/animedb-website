@@ -10,6 +10,7 @@ export default function Home() {
             <Hero></Hero>
             <CardList
                 api={getSeasonAPI(2022, "summer")}
+                stringApi={"getSeasonAPI(2022, summer)"}
                 title={"Summer 2022 Anime"}
             ></CardList>
             <CardList

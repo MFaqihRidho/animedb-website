@@ -43,7 +43,7 @@ export default function Character_Staff() {
                     </h1>
                     {character?.length !== 0 ? (
                         character?.map((data) => (
-                            <div className="flex justify-between gap-5 overflow-hidden border-4 border-gray-700 lg:flex dark:border-gray-200 rounded-2xl">
+                            <div className="flex justify-between gap-20 overflow-hidden border-4 border-gray-700 lg:flex dark:border-gray-200 rounded-2xl">
                                 <div className="flex flex-col self-start text-2xl">
                                     <img
                                         className="h-full"
@@ -66,7 +66,9 @@ export default function Character_Staff() {
                                                       <p>
                                                           {data?.person?.name}
                                                       </p>
-                                                      <p>{data?.language}</p>
+                                                      <p className="text-gray-500">
+                                                          {data?.language}
+                                                      </p>
                                                   </div>
                                                   <img
                                                       className="object-cover w-20 h-28"
@@ -97,8 +99,8 @@ export default function Character_Staff() {
                                     />
                                     <div className="px-3 py-3">
                                         <p>{data?.person?.name}</p>
-                                        <p>
-                                            {data?.divositions?.length !== 0
+                                        <p className="text-gray-500">
+                                            {data?.positions?.length !== 0
                                                 ? data?.positions
                                                       .map((data) => data)
                                                       .join(",")

@@ -38,7 +38,10 @@ export default function CardList(props) {
                         {props.title}
                     </h1>
                     <div className="lg:w-2/3 h-0.5 w-1/6 sm:w-1/2 bg-gray-200 dark:bg-gray-500"></div>
-                    <button className="text-lg font-extrabold md:text-xl text-light_secondary dark:text-dark_secondary">
+                    <button
+                        onClick={() => navigate(`/view all/${props.api}`)}
+                        className="text-lg font-extrabold md:text-xl text-light_secondary dark:text-dark_secondary"
+                    >
                         VIEW ALL
                     </button>
                 </div>
@@ -55,7 +58,7 @@ export default function CardList(props) {
                                 <img
                                     src={data.images.jpg.large_image_url}
                                     alt=""
-                                    className="object-cover w-full h-36 md:h-80 lg:h-60 xl:h-80 rounded-xl"
+                                    className="object-cover w-full h-32 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                 />
                                 <p
                                     className={`text-center mx-auto overflow-hidden max-w-superMini text-ellipsis whitespace-nowrap md:max-w-mini lg:whitespace-normal sm:text-black sm:dark:text-white lg:text-white lg:dark:text-black text-sm md:text-lg lg:text-xl font-semibold`}

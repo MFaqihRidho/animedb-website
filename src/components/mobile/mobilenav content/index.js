@@ -123,15 +123,27 @@ export default function MobileContentNav(props) {
                 </div>
             ) : (
                 <div className="absolute z-10 flex flex-col items-center invisible px-3 py-4 mt-3 transition-all duration-300 rounded opacity-0 gap-7 right-44 left-44 bg-light_primary dark:bg-dark_primary">
-                    <p className="px-2 text-2xl font-normal">Videos</p>
-                    <p className="px-2 text-2xl font-normal">Episodes</p>
-                    <p className="px-2 text-2xl font-normal">Reviews</p>
-                    <p className="px-2 text-2xl font-normal">Recommendation</p>
-                    <p className="px-2 text-2xl font-normal">Stats</p>
-                    <p className="px-2 text-2xl font-normal text-center">
+                    <p className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary">
+                        Videos
+                    </p>
+                    <p className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary">
+                        Episodes
+                    </p>
+                    <p className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary">
+                        Reviews
+                    </p>
+                    <p className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary">
+                        Recommendation
+                    </p>
+                    <p className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary">
+                        Stats
+                    </p>
+                    <p className="px-2 py-1 text-2xl font-normal text-center rounded bg-light_secondary dark:bg-dark_secondary">
                         Character & staff
                     </p>
-                    <p className="px-2 text-2xl font-normal">More Info</p>
+                    <p className="px-2 py-1 text-2xl font-normal rounded bg-light_secondary dark:bg-dark_secondary">
+                        More Info
+                    </p>
                 </div>
             )}
         </div>
