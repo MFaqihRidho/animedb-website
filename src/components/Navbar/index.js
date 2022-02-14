@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import MobileNav from "../mobilenav";
+import MobileNav from "../mobile/mobilenav";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
