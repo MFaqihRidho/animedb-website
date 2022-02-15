@@ -18,10 +18,10 @@ export const getAiringAPI = () => {
     );
 };
 
-export const getSearchAPI = (keyword, number) => {
-    return fetch(`https://api.jikan.moe/v4/anime?q=${keyword}&page=${2}`).then(
-        (res) => res.json().then((results) => Promise.resolve(results))
-    );
+export const getSearchAPI = (keyword, num) => {
+    return fetch(
+        `https://api.jikan.moe/v4/anime?q=${keyword}&page=${num}`
+    ).then((res) => res.json().then((results) => Promise.resolve(results)));
 };
 
 export const getTodayAPI = () => {

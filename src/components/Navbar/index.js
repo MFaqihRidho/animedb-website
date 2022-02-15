@@ -27,7 +27,7 @@ export default function Navbar() {
     };
     const handleSubmit = () => {
         if (value !== "") {
-            navigate(`/search/${value}`);
+            navigate(`/search/${value}/page/1`);
             setValue("");
         }
     };

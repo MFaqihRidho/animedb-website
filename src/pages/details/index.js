@@ -21,6 +21,8 @@ export default function Details() {
 
     const dispatch = useDispatch();
 
+    const [isVisible, setIsVisible] = useState(true);
+
     const toggleContentNav = () => {
         setContentNav(!contentNav);
         contentNav ? setContent(5) : setContent(1);
@@ -37,6 +39,24 @@ export default function Details() {
             behavior: "smooth",
         });
     };
+
+    const listenToScroll = () => {
+        let heightToShowFrom = 5000;
+        const winScroll =
+            document.body.scrollTop || document.documentElement.scrollTop;
+
+        if (winScroll > heightToShowFrom) {
+            isVisible && // to limit setting state only the first time
+                setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", listenToScroll);
+        return () => window.removeEventListener("scroll", listenToScroll);
+    }, []);
 
     useEffect(() => {
         let mounted = true;
@@ -412,7 +432,7 @@ export default function Details() {
                                 content7={() => switchContent(7)}
                             ></MobileContentNav>
                         </div>
-                        <div className="container mx-auto min-h-fit">
+                        <div className="container flex flex-col mx-auto min-h-[500px]">
                             <div>
                                 {content === 1 ? <Videos></Videos> : null}
                             </div>
@@ -436,6 +456,26 @@ export default function Details() {
                             <div>
                                 {content === 7 ? <More_Info></More_Info> : null}
                             </div>
+                            {isVisible && (
+                                <button
+                                    onClick={scrollTop}
+                                    className="text-center flex flex-col items-center fixed bottom-10 right-0 left-0 mx-auto animate-bounce"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-10 w-10"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                    <p>Back To Top ?</p>
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
