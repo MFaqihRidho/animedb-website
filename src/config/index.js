@@ -1,3 +1,5 @@
+const baseSearchUrl = "https://api.jikan.moe/v4/anime";
+
 export const getUpcomingAPI = () => {
     return fetch(`https://api.jikan.moe/v4/seasons/upcoming`).then((res) =>
         res.json().then((results) => Promise.resolve(results))
@@ -6,6 +8,18 @@ export const getUpcomingAPI = () => {
 
 export const getSeasonAPI = (year, season) => {
     return fetch(`https://api.jikan.moe/v4/seasons/${year}/${season}`).then(
+        (res) => res.json().then((results) => Promise.resolve(results))
+    );
+};
+
+export const getAiringAPI = () => {
+    return fetch(`https://api.jikan.moe/v4/seasons/now`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};
+
+export const getSearchAPI = (keyword, number) => {
+    return fetch(`https://api.jikan.moe/v4/anime?q=${keyword}&page=${2}`).then(
         (res) => res.json().then((results) => Promise.resolve(results))
     );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import MobileNav from "../mobile/mobilenav";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -7,11 +8,28 @@ export default function Navbar() {
     const menuRef = useRef(null);
     const [showDropDown, setShowDropDown] = useState(false);
     const [listening, setListening] = useState(false);
+    const [value, setValue] = useState("");
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
     const toggleDropDown = () => {
         setShowDropDown(!showDropDown);
+    };
+
+    const handleChangeValue = (e) => {
+        setValue(e.target.value);
+        e.target.addEventListener("keypress", (e) => {
+            if (e.keyCode === 13) {
+                document.getElementById("search").click();
+            }
+        });
+    };
+    const handleSubmit = () => {
+        if (value !== "") {
+            navigate(`/search/${value}`);
+            setValue("");
+        }
     };
 
     const theme = () => {
@@ -93,11 +111,15 @@ export default function Navbar() {
                             type="search"
                             class="w-full px-4 py-1 dark:text-gray-200 text-gray-800 dark:bg-gray-500 rounded-full focus:outline-none transition-colors duration-300"
                             placeholder="search anime"
+                            onChange={(e) => handleChangeValue(e)}
+                            value={value}
                         ></input>
                     </div>
                     <div>
                         <button
                             type="submit"
+                            id="search"
+                            onClick={handleSubmit}
                             class="flex items-center bg-light_secondary h-9 dark:bg-dark_secondary justify-center w-12 transition-all duration-300 text-white rounded-r-lg"
                         >
                             <svg
