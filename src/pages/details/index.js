@@ -101,7 +101,17 @@ export default function Details() {
                                         src={data?.images?.jpg?.image_url}
                                         alt=""
                                     />
-                                    <div className="flex-col items-center hidden w-2/3 px-2 py-2 transition-colors duration-300 bg-yellow-400 md:flex xl:hidden rounded-2xl dark:bg-yellow-600">
+                                    <div
+                                        className={`flex-col items-center hidden w-2/3 px-2 py-2 transition-colors duration-300 ${
+                                            data?.score
+                                                ? data?.score > 7.5
+                                                    ? "bg-green-400 dark:bg-green-600"
+                                                    : data?.score > 6
+                                                    ? "bg-yellow-400 dark:bg-yellow-600"
+                                                    : "bg-red-400 dark:bg-red-600"
+                                                : "bg-gray-400 dark:bg-gray-600"
+                                        } md:flex xl:hidden rounded-2xl `}
+                                    >
                                         <p className="font-bold text-md">
                                             SCORE
                                         </p>
@@ -186,7 +196,17 @@ export default function Details() {
                                 </div>
                             </div>
                             <div className="flex flex-col items-center justify-between w-full gap-10 px-5 pb-10 xl:flex-row pt-7">
-                                <div className="flex md:hidden w-1/2 xl:flex xl:w-[11%]  justify-center flex-col items-center rounded-2xl transition-colors duration-300 py-1 px-1  bg-yellow-400 dark:bg-yellow-600">
+                                <div
+                                    className={`flex md:hidden w-1/2 xl:flex xl:w-[11%]  justify-center flex-col items-center rounded-2xl transition-colors duration-300 py-1 px-1  ${
+                                        data?.score
+                                            ? data?.score > 7.5
+                                                ? "bg-green-400 dark:bg-green-600"
+                                                : data?.score > 6
+                                                ? "bg-yellow-400 dark:bg-yellow-600"
+                                                : "bg-red-400 dark:bg-red-600"
+                                            : "bg-gray-400 dark:bg-gray-600"
+                                    }`}
+                                >
                                     <p className="font-bold text-md">SCORE</p>
 
                                     <div className="flex items-end font-bold">
@@ -219,7 +239,7 @@ export default function Details() {
                                     </p>
                                 </div>
                                 <div className="flex-col items-start w-full border-2 border-gray-700 lg:flex dark:border-gray-200 justify-evenly rounded-xl">
-                                    <div className="flex flex-col text-md xl:text-sm items-center justify-center w-full gap-4 p-5 xl:flex-row">
+                                    <div className="flex flex-col items-center justify-center w-full gap-4 p-5 text-md xl:text-sm xl:flex-row">
                                         <p className="flex gap-1 font-bold">
                                             Type :
                                             <p className="font-normal dark:font-light">
@@ -272,7 +292,7 @@ export default function Details() {
                                         </p>
                                     </div>
                                     <div className="w-full  bg-gray-700 dark:bg-gray-200 h-[1px]"></div>
-                                    <div className="flex flex-col items-center justify-center w-full gap-2 text-md xl:text-sm p-5 xl:flex-row">
+                                    <div className="flex flex-col items-center justify-center w-full gap-2 p-5 text-md xl:text-sm xl:flex-row">
                                         <p className="flex gap-1 font-bold">
                                             Status :
                                             <p className="font-normal dark:font-light">
@@ -327,7 +347,7 @@ export default function Details() {
                         </div>
                     </div>
                     <div className="w-full px-5 py-10 min-h-fit">
-                        <div className="container flex flex-row justify-around md:justify-between w-full mx-auto">
+                        <div className="container flex flex-row justify-around w-full mx-auto md:justify-between">
                             <button
                                 onClick={() => switchContent(1)}
                                 className={`uppercase border-b-4 ${
@@ -412,7 +432,7 @@ export default function Details() {
                             >
                                 More Info
                             </button>
-                            <button className="pb-2 hidden md:block lg:hidden border-b-4 border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary">
+                            <button className="hidden pb-2 border-b-4 md:block lg:hidden border-b-transparent hover:border-b-light_secondary hover:dark:border-b-dark_secondary">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-7 h-7 "
@@ -460,11 +480,11 @@ export default function Details() {
                             {isVisible && (
                                 <button
                                     onClick={scrollTop}
-                                    className="text-center flex flex-col items-center fixed bottom-10 right-0 left-0 mx-auto animate-bounce"
+                                    className="fixed left-0 right-0 flex flex-col items-center mx-auto text-center bottom-10 animate-bounce"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="h-10 w-10"
+                                        className="w-10 h-10"
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                     >

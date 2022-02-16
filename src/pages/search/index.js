@@ -9,9 +9,10 @@ export default function Search() {
     const navigate = useNavigate();
     const { search } = useLocation();
     let query = new URLSearchParams(search);
-    const sort_By = query.get("sort_by");
+    const sortBy = query.get("sort_by");
     const [nextPage, setNextPage] = useState(0);
-    const [sortBy, setSortBy] = useState("");
+    const [queryParams, setQueryParams] = useState(0);
+    const baseUrl = `/search/${params.value}/page/${params.number}`;
 
     const scrollTop = () => {
         window.scrollTo({
@@ -21,10 +22,7 @@ export default function Search() {
     };
 
     const handleChangeSortBy = (e) => {
-        setSortBy(e.target.value);
-        navigate(
-            `/search/${params.value}/page/${params.number}?sort_by=${e.target.value}`
-        );
+        navigate(`${baseUrl}?sort_by=${e.target.value}`);
     };
 
     useEffect(() => {
@@ -42,11 +40,11 @@ export default function Search() {
 
     useEffect(() => {
         scrollTop();
-    }, [params.number, sort_By]);
+    }, [params.number, sortBy]);
 
     return (
         <div className="flex flex-col gap-2 pt-10">
-            <div className="container px-5 mx-auto md:px-5">
+            <div className="container px-10 mx-auto md:px-5">
                 <div class="relative inline-flex">
                     <svg
                         class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
@@ -60,7 +58,7 @@ export default function Search() {
                         />
                     </svg>
                     <select
-                        value={""}
+                        value={sortBy ? sortBy : ""}
                         onChange={(e) => handleChangeSortBy(e)}
                         className="h-10 pl-5 pr-10 rounded-full appearance-none bg-light_secondary dark:bg-dark_secondary focus:outline-none"
                     >
@@ -82,7 +80,7 @@ export default function Search() {
             </div>
             <div className="flex flex-col justify-between min-h-screen">
                 <CardList
-                    api={getSearchAPI(params.value, params.number, sort_By)}
+                    api={getSearchAPI(params.value, params.number, sortBy)}
                     title={`Result for ${params.value}`}
                     all={true}
                     state={[params.value, params.number, sortBy]}
