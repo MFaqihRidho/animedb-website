@@ -31,7 +31,7 @@ export default function CardList(props) {
             }
         });
         return () => (mounted = false);
-    }, []);
+    }, [props.state ? props.state : null]);
 
     return (
         <div className="w-full px-3 pt-2 transition-all duration-300 bg-white md:px-5 dark:bg-black min-h-fit">
@@ -51,7 +51,7 @@ export default function CardList(props) {
                 </div>
                 {loading === true ? (
                     <CardLoading></CardLoading>
-                ) : (
+                ) : data?.length !== 0 ? (
                     <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                         {all
                             ? data?.map((data) => (
@@ -90,6 +90,12 @@ export default function CardList(props) {
                                       </p>
                                   </div>
                               ))}
+                    </div>
+                ) : (
+                    <div className="min-h-screen mt-10">
+                        <h1 className="text-3xl font-bold text-center">
+                            Not Available
+                        </h1>
                     </div>
                 )}
             </div>

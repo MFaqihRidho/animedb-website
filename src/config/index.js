@@ -18,9 +18,9 @@ export const getAiringAPI = () => {
     );
 };
 
-export const getSearchAPI = (keyword, num) => {
+export const getSearchAPI = (keyword, num, order_by) => {
     return fetch(
-        `https://api.jikan.moe/v4/anime?q=${keyword}&page=${num}`
+        `https://api.jikan.moe/v4/anime?q=${keyword}&page=${num}&sfw&order_by=${order_by}`
     ).then((res) => res.json().then((results) => Promise.resolve(results)));
 };
 

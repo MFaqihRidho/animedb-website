@@ -54,6 +54,7 @@ export default function Details() {
     };
 
     useEffect(() => {
+        setIsVisible(false);
         window.addEventListener("scroll", listenToScroll);
         return () => window.removeEventListener("scroll", listenToScroll);
     }, []);
@@ -218,7 +219,7 @@ export default function Details() {
                                     </p>
                                 </div>
                                 <div className="flex-col items-start w-full border-2 border-gray-700 lg:flex dark:border-gray-200 justify-evenly rounded-xl">
-                                    <div className="flex flex-col items-center justify-center w-full gap-4 p-5 xl:flex-row">
+                                    <div className="flex flex-col text-md xl:text-sm items-center justify-center w-full gap-4 p-5 xl:flex-row">
                                         <p className="flex gap-1 font-bold">
                                             Type :
                                             <p className="font-normal dark:font-light">
@@ -271,7 +272,7 @@ export default function Details() {
                                         </p>
                                     </div>
                                     <div className="w-full  bg-gray-700 dark:bg-gray-200 h-[1px]"></div>
-                                    <div className="flex flex-col items-center justify-center w-full gap-4 p-5 xl:flex-row">
+                                    <div className="flex flex-col items-center justify-center w-full gap-2 text-md xl:text-sm p-5 xl:flex-row">
                                         <p className="flex gap-1 font-bold">
                                             Status :
                                             <p className="font-normal dark:font-light">
