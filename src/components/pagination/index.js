@@ -41,7 +41,7 @@ export default function Pagination(props) {
                                 : navigate(
                                       `/${props.title}/${params.value}/page/${
                                           parseInt(params.number) - 1
-                                      }`
+                                      }${props.query}`
                                   )
                         }
                         class="h-12 w-12 mr-1 flex justify-center items-center rounded-full bg-light_primary dark:bg-dark_primary cursor-pointer"
@@ -84,7 +84,9 @@ export default function Pagination(props) {
                                     : navigate(
                                           `/${props.title}/${
                                               params.value
-                                          }/page/${parseInt(params.number) - 1}`
+                                          }/page/${
+                                              parseInt(params.number) - 1
+                                          }${props.query}`
                                       )
                             }
                             class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in hover:bg-light_secondary hover:dark:bg-dark_secondary rounded-full  "
@@ -101,7 +103,9 @@ export default function Pagination(props) {
                                     ? navigate(
                                           `/${props.title}/${
                                               params.value
-                                          }/page/${parseInt(params.number) + 1}`
+                                          }/page/${
+                                              parseInt(params.number) + 1
+                                          }${props.query}`
                                       )
                                     : show()
                             }
@@ -117,7 +121,7 @@ export default function Pagination(props) {
                         <div
                             onClick={() =>
                                 navigate(
-                                    `/${props.title}/${params.value}/page/${props?.maxPage}`
+                                    `/${props.title}/${params.value}/page/${props?.maxPage}${props.query}`
                                 )
                             }
                             class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in hover:bg-light_secondary hover:dark:bg-dark_secondary rounded-full  "
@@ -134,7 +138,7 @@ export default function Pagination(props) {
                                 ? navigate(
                                       `/${props.title}/${params.value}/page/${
                                           parseInt(params.number) + 1
-                                      }`
+                                      }${props.query}`
                                   )
                                 : show()
                         }

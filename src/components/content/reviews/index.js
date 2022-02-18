@@ -53,6 +53,9 @@ export default function Reviews() {
                                 </p>
                             </div>
                             <p>{data?.review}</p>
+                            <p className={`text-green-400 py-2 text-lg`}>
+                                {data?.votes} people agree with this reviews
+                            </p>
                         </div>
                     </div>
                 ))

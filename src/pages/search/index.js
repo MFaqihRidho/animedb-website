@@ -2,15 +2,23 @@ import React, { useEffect, useState } from "react";
 import { getSearchAPI } from "../../config";
 import CardList from "../../components/card list";
 import Pagination from "../../components/pagination";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Search() {
+    // Router
     const params = useParams();
     const navigate = useNavigate();
+
+    // Query String
+    let [searchParams, setSearchParams] = useSearchParams();
+    const orderBy = searchParams.get("order_by");
+
+    // State
     const [nextPage, setNextPage] = useState(0);
-    const baseUrl = `/search/${params.value}/page/${params.number}`;
-    const [sort, setSort] = useState([]);
+    const [order, setOrder] = useState([]);
     const [queryParams, setQueryParams] = useState([]);
+
+    const baseUrl = `/search/${params.value}/page/${params.number}`;
 
     const scrollTop = () => {
         window.scrollTo({
@@ -19,18 +27,17 @@ export default function Search() {
         });
     };
 
-    const handleChangeSortBy = (e) => {
+    const handleChangeOrderBy = (e) => {
         if (e.target.value !== "") {
-            setSort(e.target.value);
+            setOrder(e.target.value);
         } else {
-            setSort("");
+            setOrder("");
         }
     };
 
     const applyFilter = () => {
-        setQueryParams(`${baseUrl}?${sort}`);
-        navigate(`${baseUrl}?${sort !== "" ? `sort_by=${sort}` : ""}`);
-        console.log(queryParams);
+        setQueryParams(`?${order !== "" ? `order_by=${order}` : ""}`);
+        navigate(`${baseUrl}?${order !== "" ? `order_by=${order}` : ""}`);
     };
 
     useEffect(() => {
@@ -39,6 +46,7 @@ export default function Search() {
         getSearchAPI(params.value, params.number).then((result) => {
             if (mounted) {
                 setNextPage(result.pagination.last_visible_page);
+                setOrder("");
             } else {
                 return;
             }
@@ -52,8 +60,8 @@ export default function Search() {
 
     return (
         <div className="flex flex-col gap-2 pt-10">
-            <div className="container px-10 mx-auto flex justify-center items-center flex-col gap-5 md:px-5">
-                <div>
+            <div className="container flex flex-col items-center justify-center gap-5 px-10 mx-auto md:px-5">
+                <div className="flex gap-5">
                     <div class="relative inline-flex">
                         <svg
                             class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
@@ -67,10 +75,46 @@ export default function Search() {
                             />
                         </svg>
                         <select
-                            onChange={(e) => handleChangeSortBy(e)}
-                            className="h-10 pl-5 pr-10 transition-all duration-300 rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary appearance-none bg-light_secondary dark:bg-dark_secondary focus:outline-none"
+                            value={order}
+                            onChange={(e) => handleChangeOrderBy(e)}
+                            className="h-10 pl-5 pr-10 transition-all duration-300 appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none"
                         >
                             <option value={""}>Order By</option>
+                            <option value={"title"}>title</option>
+                            <option value={"type"}>type</option>
+                            <option value={"rating"}>rating</option>
+                            <option value={"start_date"}>start date</option>
+                            <option value={"end_date"}>end date</option>
+                            <option value={"episodes"}>episodes</option>
+                            <option value={"score"}>score</option>
+                            <option value={"scored_by"}>scored by</option>
+                            <option value={"rank"}>rank</option>
+                            <option value={"popularity"}>popularity</option>
+                            <option value={"members"}>members</option>
+                            <option value={"favorites"}>favorites</option>
+                        </select>
+                    </div>
+                    <div class="relative inline-flex">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 absolute top-0 right-0 mx-4 my-2 pointer-events-none"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M7 11l5-5m0 0l5 5m-5-5v12"
+                            />
+                        </svg>
+                        <select
+                            value={order}
+                            onChange={(e) => handleChangeOrderBy(e)}
+                            className="h-10 pl-5 pr-10 transition-all duration-300 appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none"
+                        >
+                            <option value={""}>Sort By</option>
                             <option value={"title"}>title</option>
                             <option value={"type"}>type</option>
                             <option value={"rating"}>rating</option>
@@ -89,7 +133,7 @@ export default function Search() {
                 <div>
                     <button
                         onClick={applyFilter}
-                        className="rounded-xl transition-all duration-300 focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary px-5 py-2 text-lg bg-light_secondary dark:bg-dark_secondary"
+                        className="px-5 py-2 text-lg transition-all duration-300 rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary"
                     >
                         Apply
                     </button>
@@ -97,11 +141,15 @@ export default function Search() {
             </div>
             <div className="flex flex-col justify-between min-h-screen">
                 <CardList
-                    api={getSearchAPI(params.value, params.number)}
+                    api={getSearchAPI(params.value, params.number, orderBy)}
                     title={`Result for ${params.value}`}
                     all={true}
                 ></CardList>
-                <Pagination title="search" maxPage={nextPage}></Pagination>
+                <Pagination
+                    title="search"
+                    query={queryParams}
+                    maxPage={nextPage}
+                ></Pagination>
             </div>
         </div>
     );
