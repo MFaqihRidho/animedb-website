@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import { getSearchAPI } from "../../config";
 import CardList from "../../components/card list";
 import Pagination from "../../components/pagination";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function Search() {
     const params = useParams();
     const navigate = useNavigate();
-    const { search } = useLocation();
-    let query = new URLSearchParams(search);
-    const sortBy = query.get("sort_by");
     const [nextPage, setNextPage] = useState(0);
-    const [queryParams, setQueryParams] = useState(0);
     const baseUrl = `/search/${params.value}/page/${params.number}`;
+    const [sort, setSort] = useState([]);
+    const [queryParams, setQueryParams] = useState([]);
 
     const scrollTop = () => {
         window.scrollTo({
@@ -22,7 +20,17 @@ export default function Search() {
     };
 
     const handleChangeSortBy = (e) => {
-        navigate(`${baseUrl}?sort_by=${e.target.value}`);
+        if (e.target.value !== "") {
+            setSort(e.target.value);
+        } else {
+            setSort("");
+        }
+    };
+
+    const applyFilter = () => {
+        setQueryParams(`${baseUrl}?${sort}`);
+        navigate(`${baseUrl}?${sort !== "" ? `sort_by=${sort}` : ""}`);
+        console.log(queryParams);
     };
 
     useEffect(() => {
@@ -36,60 +44,64 @@ export default function Search() {
             }
         });
         return () => (mounted = false);
-    }, []);
+    }, [params.value]);
 
     useEffect(() => {
         scrollTop();
-    }, [params.number, sortBy]);
+    }, [params.number]);
 
     return (
         <div className="flex flex-col gap-2 pt-10">
-            <div className="container px-10 mx-auto md:px-5">
-                <div class="relative inline-flex">
-                    <svg
-                        class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 412 232"
+            <div className="container px-10 mx-auto flex justify-center items-center flex-col gap-5 md:px-5">
+                <div>
+                    <div class="relative inline-flex">
+                        <svg
+                            class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 412 232"
+                        >
+                            <path
+                                d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                fill="#648299"
+                                fill-rule="nonzero"
+                            />
+                        </svg>
+                        <select
+                            onChange={(e) => handleChangeSortBy(e)}
+                            className="h-10 pl-5 pr-10 transition-all duration-300 rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary appearance-none bg-light_secondary dark:bg-dark_secondary focus:outline-none"
+                        >
+                            <option value={""}>Order By</option>
+                            <option value={"title"}>title</option>
+                            <option value={"type"}>type</option>
+                            <option value={"rating"}>rating</option>
+                            <option value={"start_date"}>start date</option>
+                            <option value={"end_date"}>end date</option>
+                            <option value={"episodes"}>episodes</option>
+                            <option value={"score"}>score</option>
+                            <option value={"scored_by"}>scored by</option>
+                            <option value={"rank"}>rank</option>
+                            <option value={"popularity"}>popularity</option>
+                            <option value={"members"}>members</option>
+                            <option value={"favorites"}>favorites</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button
+                        onClick={applyFilter}
+                        className="rounded-xl transition-all duration-300 focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary px-5 py-2 text-lg bg-light_secondary dark:bg-dark_secondary"
                     >
-                        <path
-                            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                            fill="#648299"
-                            fill-rule="nonzero"
-                        />
-                    </svg>
-                    <select
-                        value={sortBy ? sortBy : ""}
-                        onChange={(e) => handleChangeSortBy(e)}
-                        className="h-10 pl-5 pr-10 rounded-full appearance-none bg-light_secondary dark:bg-dark_secondary focus:outline-none"
-                    >
-                        <option>Sort By</option>
-                        <option value={"title"}>title</option>
-                        <option value={"type"}>type</option>
-                        <option value={"rating"}>rating</option>
-                        <option value={"start_date"}>start date</option>
-                        <option value={"end_date"}>end date</option>
-                        <option value={"episodes"}>episodes</option>
-                        <option value={"score"}>score</option>
-                        <option value={"scored_by"}>scored by</option>
-                        <option value={"rank"}>rank</option>
-                        <option value={"popularity"}>popularity</option>
-                        <option value={"members"}>members</option>
-                        <option value={"favorites"}>favorites</option>
-                    </select>
+                        Apply
+                    </button>
                 </div>
             </div>
             <div className="flex flex-col justify-between min-h-screen">
                 <CardList
-                    api={getSearchAPI(params.value, params.number, sortBy)}
+                    api={getSearchAPI(params.value, params.number)}
                     title={`Result for ${params.value}`}
                     all={true}
-                    state={[params.value, params.number, sortBy]}
                 ></CardList>
-                <Pagination
-                    title="search"
-                    query={search}
-                    maxPage={nextPage}
-                ></Pagination>
+                <Pagination title="search" maxPage={nextPage}></Pagination>
             </div>
         </div>
     );

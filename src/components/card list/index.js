@@ -1,7 +1,7 @@
 import React from "react";
 import CardLoading from "../card loading";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function CardList(props) {
@@ -10,6 +10,7 @@ export default function CardList(props) {
     const loading = useSelector((state) => state.cardLoading);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const params = useParams();
 
     const handleClickEvent = (event) => {
         event.preventDefault();
@@ -31,7 +32,10 @@ export default function CardList(props) {
             }
         });
         return () => (mounted = false);
-    }, [props.state ? props.state : null]);
+    }, [
+        params.value ? params.value : null,
+        params.number ? params.number : null,
+    ]);
 
     return (
         <div className="w-full px-3 pt-2 transition-all duration-300 bg-white md:px-5 dark:bg-black min-h-fit">
@@ -51,7 +55,7 @@ export default function CardList(props) {
                 </div>
                 {loading === true ? (
                     <CardLoading></CardLoading>
-                ) : data?.length !== 0 ? (
+                ) : data?.length !== 0 && loading === false ? (
                     <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                         {all
                             ? data?.map((data) => (
