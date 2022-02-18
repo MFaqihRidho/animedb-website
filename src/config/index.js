@@ -18,10 +18,18 @@ export const getAiringAPI = () => {
     );
 };
 
-export const getSearchAPI = (keyword, num, order_by) => {
+export const getSearchAPI = (keyword, num, order_by, sort) => {
     return fetch(
-        `https://api.jikan.moe/v4/anime?q=${keyword}&page=${num}&sfw&order_by=${order_by}`
-    ).then((res) => res.json().then((results) => Promise.resolve(results)));
+        `https://api.jikan.moe/v4/anime?q=${keyword}&page=${num}&sfw&order_by=${order_by}&sort=${sort}`
+    )
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("Something went wrong");
+            }
+        })
+        .then((results) => Promise.resolve(results));
 };
 
 export const getTodayAPI = () => {

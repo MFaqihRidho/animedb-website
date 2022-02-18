@@ -28,7 +28,7 @@ export default function Reviews() {
         <div className="flex flex-col gap-10 pt-10">
             {loading ? (
                 <ContentLoading></ContentLoading>
-            ) : data?.length !== 0 ? (
+            ) : data?.length !== 0 && loading === false ? (
                 data?.map((data) => (
                     <div className="grid md:grid-cols-[1fr,5fr] lg:grid-cols-[1fr,8fr] gap-10 md:gap-5">
                         <img

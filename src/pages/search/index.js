@@ -12,10 +12,12 @@ export default function Search() {
     // Query String
     let [searchParams, setSearchParams] = useSearchParams();
     const orderBy = searchParams.get("order_by");
+    const sortBy = searchParams.get("sort");
 
     // State
     const [nextPage, setNextPage] = useState(0);
     const [order, setOrder] = useState([]);
+    const [sort, setSort] = useState("asc");
     const [queryParams, setQueryParams] = useState([]);
 
     const baseUrl = `/search/${params.value}/page/${params.number}`;
@@ -35,9 +37,26 @@ export default function Search() {
         }
     };
 
+    const handleChangeSort = () => {
+        if (sort === "asc") {
+            setSort("desc");
+        } else {
+            setSort("asc");
+        }
+    };
+
     const applyFilter = () => {
-        setQueryParams(`?${order !== "" ? `order_by=${order}` : ""}`);
-        navigate(`${baseUrl}?${order !== "" ? `order_by=${order}` : ""}`);
+        setQueryParams(
+            `?${order !== "" ? `&order_by=${order}` : ""}&${
+                sort !== "" ? `sort=${sort}` : ""
+            }`
+        );
+        navigate(
+            `${baseUrl}?${order !== "" ? `&order_by=${order}` : ""}&${
+                sort !== "" ? `sort=${sort}` : ""
+            }`
+        );
+        console.log(sort);
     };
 
     useEffect(() => {
@@ -74,10 +93,11 @@ export default function Search() {
                                 fill-rule="nonzero"
                             />
                         </svg>
+
                         <select
                             value={order}
                             onChange={(e) => handleChangeOrderBy(e)}
-                            className="h-10 pl-5 pr-10 transition-all duration-300 appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none"
+                            className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
                         >
                             <option value={""}>Order By</option>
                             <option value={"title"}>title</option>
@@ -95,39 +115,44 @@ export default function Search() {
                         </select>
                     </div>
                     <div class="relative inline-flex">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6 absolute top-0 right-0 mx-4 my-2 pointer-events-none"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+                        {sort === "asc" ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6 absolute top-0 right-0 mx-4 my-2 pointer-events-none"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M7 11l5-5m0 0l5 5m-5-5v12"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6 absolute top-0 right-0 mx-4 my-2 pointer-events-none"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M17 13l-5 5m0 0l-5-5m5 5V6"
+                                />
+                            </svg>
+                        )}
+
+                        <button
+                            onClick={handleChangeSort}
+                            className="h-10 pl-5 pr-10 transition-all duration-300 appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary"
                         >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M7 11l5-5m0 0l5 5m-5-5v12"
-                            />
-                        </svg>
-                        <select
-                            value={order}
-                            onChange={(e) => handleChangeOrderBy(e)}
-                            className="h-10 pl-5 pr-10 transition-all duration-300 appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none"
-                        >
-                            <option value={""}>Sort By</option>
-                            <option value={"title"}>title</option>
-                            <option value={"type"}>type</option>
-                            <option value={"rating"}>rating</option>
-                            <option value={"start_date"}>start date</option>
-                            <option value={"end_date"}>end date</option>
-                            <option value={"episodes"}>episodes</option>
-                            <option value={"score"}>score</option>
-                            <option value={"scored_by"}>scored by</option>
-                            <option value={"rank"}>rank</option>
-                            <option value={"popularity"}>popularity</option>
-                            <option value={"members"}>members</option>
-                            <option value={"favorites"}>favorites</option>
-                        </select>
+                            Sort
+                        </button>
                     </div>
                 </div>
                 <div>
@@ -141,7 +166,12 @@ export default function Search() {
             </div>
             <div className="flex flex-col justify-between min-h-screen">
                 <CardList
-                    api={getSearchAPI(params.value, params.number, orderBy)}
+                    api={getSearchAPI(
+                        params.value,
+                        params.number,
+                        orderBy,
+                        sortBy
+                    )}
                     title={`Result for ${params.value}`}
                     all={true}
                 ></CardList>

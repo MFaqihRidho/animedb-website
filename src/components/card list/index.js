@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function CardList(props) {
     const [data, setData] = useState([]);
+    const [error, setError] = useState("");
     const [all, setAll] = useState(false);
     const loading = useSelector((state) => state.cardLoading);
     const navigate = useNavigate();
@@ -23,14 +24,23 @@ export default function CardList(props) {
         if (props.all === true) {
             setAll(true);
         }
-        props.api.then((result) => {
-            if (mounted) {
-                setData(result.data);
-                dispatch({ type: "LOADING_CARD_FALSE" });
-            } else {
-                return;
-            }
-        });
+        props.api
+            .then((result) => {
+                if (mounted) {
+                    setData(result.data);
+                    dispatch({ type: "LOADING_CARD_FALSE" });
+                } else {
+                    return;
+                }
+            })
+            .catch((error) => {
+                if (mounted) {
+                    setError(error);
+                    dispatch({ type: "LOADING_CARD_FALSE" });
+                } else {
+                    return;
+                }
+            });
         return () => (mounted = false);
     }, [params]);
 
@@ -52,7 +62,8 @@ export default function CardList(props) {
                 </div>
                 {loading === true ? (
                     <CardLoading></CardLoading>
-                ) : data?.length !== 0 && loading === false ? (
+                ) : (data?.length !== 0 && loading === false) ||
+                  error !== "" ? (
                     <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                         {all
                             ? data?.map((data) => (
@@ -95,7 +106,7 @@ export default function CardList(props) {
                 ) : (
                     <div className="min-h-screen mt-10">
                         <h1 className="text-3xl font-bold text-center">
-                            Not Available
+                            {error !== "" ? error : "Not Available"}
                         </h1>
                     </div>
                 )}
