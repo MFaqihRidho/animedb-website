@@ -17,15 +17,10 @@ export default function Character_Staff() {
         getCharactersAPI(params.id).then((result) => {
             if (mounted) {
                 setCharacter(result.data);
-                dispatch({ type: "LOADING_CONTENT_FALSE" });
-            } else {
-                return;
-            }
-        });
-        getStaffAPI(params.id).then((result) => {
-            if (mounted) {
-                setStaff(result.data);
-                dispatch({ type: "LOADING_CONTENT_FALSE" });
+                getStaffAPI(params.id).then((result) => {
+                    setStaff(result.data);
+                    dispatch({ type: "LOADING_CONTENT_FALSE" });
+                });
             } else {
                 return;
             }

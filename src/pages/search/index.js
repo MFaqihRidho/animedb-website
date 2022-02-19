@@ -15,6 +15,7 @@ export default function Search() {
     const sortBy = searchParams.get("sort");
     const typeBy = searchParams.get("type");
     const statusBy = searchParams.get("status");
+    const ratingBy = searchParams.get("rating");
 
     // State
     const [nextPage, setNextPage] = useState(0);
@@ -22,6 +23,7 @@ export default function Search() {
     const [sort, setSort] = useState("asc");
     const [type, setType] = useState([]);
     const [status, setStatus] = useState([]);
+    const [rating, setRating] = useState([]);
     const [queryParams, setQueryParams] = useState([]);
 
     const baseUrl = `/search/${params.value}/page/${params.number}`;
@@ -65,22 +67,34 @@ export default function Search() {
         }
     };
 
+    const handleChangeRating = (e) => {
+        if (e.target.value !== "") {
+            setRating(e.target.value);
+        } else {
+            setRating("");
+        }
+    };
+
     const applyFilter = () => {
         setQueryParams(
             `?${order !== "" ? `&order_by=${order}` : ""}${
                 sort !== "" ? `&sort=${sort}` : ""
             }${type !== "" ? `&type=${type}` : ""}${
                 status !== "" ? `&status=${status}` : ""
-            }`
+            }${rating !== "" ? `&rating=${rating}` : ""}`
         );
         navigate(
             `${baseUrl}?${order !== "" ? `&order_by=${order}` : ""}${
                 sort !== "" ? `&sort=${sort}` : ""
             }${type !== "" ? `&type=${type}` : ""}${
                 status !== "" ? `&status=${status}` : ""
-            }`
+            }${rating !== "" ? `&rating=${rating}` : ""}`
         );
-        console.log(type);
+        setOrder("");
+        setType("");
+        setSort("");
+        setStatus("");
+        setRating("");
     };
 
     useEffect(() => {
@@ -106,93 +120,126 @@ export default function Search() {
         setOrder("");
         setType("");
         setSort("");
+        setStatus("");
+        setRating("");
     }, [params.value]);
 
     return (
         <div className="flex flex-col gap-2 pt-10">
             <div className="container flex flex-col items-center justify-center gap-5 px-10 mx-auto md:px-5">
-                <div className="flex gap-5">
-                    <div class="relative inline-flex">
-                        <svg
-                            class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 412 232"
-                        >
-                            <path
-                                d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                                fill="#648299"
-                                fill-rule="nonzero"
-                            />
-                        </svg>
+                <div className="flex flex-col md:flex-row items-center gap-5">
+                    <div className="flex flex-row gap-5">
+                        <div class="relative inline-flex">
+                            <svg
+                                class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 412 232"
+                            >
+                                <path
+                                    d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                    fill="#648299"
+                                    fill-rule="nonzero"
+                                />
+                            </svg>
 
-                        <select
-                            onChange={(e) => handleChangeOrderBy(e)}
-                            className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
-                        >
-                            <option value={""}>Order By</option>
-                            <option value={"title"}>title</option>
-                            <option value={"type"}>type</option>
-                            <option value={"rating"}>rating</option>
-                            <option value={"start_date"}>start date</option>
-                            <option value={"end_date"}>end date</option>
-                            <option value={"episodes"}>episodes</option>
-                            <option value={"score"}>score</option>
-                            <option value={"scored_by"}>scored by</option>
-                            <option value={"rank"}>rank</option>
-                            <option value={"popularity"}>popularity</option>
-                            <option value={"members"}>members</option>
-                            <option value={"favorites"}>favorites</option>
-                        </select>
+                            <select
+                                value={order}
+                                onChange={(e) => handleChangeOrderBy(e)}
+                                className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
+                            >
+                                <option value={""}>Order By</option>
+                                <option value={"title"}>title</option>
+                                <option value={"type"}>type</option>
+                                <option value={"rating"}>rating</option>
+                                <option value={"start_date"}>start date</option>
+                                <option value={"end_date"}>end date</option>
+                                <option value={"episodes"}>episodes</option>
+                                <option value={"score"}>score</option>
+                                <option value={"scored_by"}>scored by</option>
+                                <option value={"rank"}>rank</option>
+                                <option value={"popularity"}>popularity</option>
+                                <option value={"members"}>members</option>
+                                <option value={"favorites"}>favorites</option>
+                            </select>
+                        </div>
+                        <div class="relative inline-flex">
+                            <svg
+                                class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 412 232"
+                            >
+                                <path
+                                    d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                    fill="#648299"
+                                    fill-rule="nonzero"
+                                />
+                            </svg>
+
+                            <select
+                                value={type}
+                                onChange={(e) => handleChangeType(e)}
+                                className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
+                            >
+                                <option value={""}>Type</option>
+                                <option value={"tv"}>tv</option>
+                                <option value={"movie"}>movie</option>
+                                <option value={"ova"}>ova</option>
+                                <option value={"special"}>special</option>
+                                <option value={"ona"}>ona</option>
+                                <option value={"music"}>music</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="relative inline-flex">
-                        <svg
-                            class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 412 232"
-                        >
-                            <path
-                                d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                                fill="#648299"
-                                fill-rule="nonzero"
-                            />
-                        </svg>
+                    <div className=" flex flex-row gap-5">
+                        <div class="relative inline-flex">
+                            <svg
+                                class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 412 232"
+                            >
+                                <path
+                                    d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                    fill="#648299"
+                                    fill-rule="nonzero"
+                                />
+                            </svg>
 
-                        <select
-                            value={type}
-                            onChange={(e) => handleChangeType(e)}
-                            className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
-                        >
-                            <option value={""}>Type</option>
-                            <option value={"tv"}>tv</option>
-                            <option value={"movie"}>movie</option>
-                            <option value={"ova"}>ova</option>
-                            <option value={"special"}>special</option>
-                            <option value={"ona"}>ona</option>
-                            <option value={"music"}>music</option>
-                        </select>
-                    </div>
-                    <div class="relative inline-flex">
-                        <svg
-                            class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 412 232"
-                        >
-                            <path
-                                d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                                fill="#648299"
-                                fill-rule="nonzero"
-                            />
-                        </svg>
+                            <select
+                                value={status}
+                                onChange={(e) => handleChangeStatus(e)}
+                                className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
+                            >
+                                <option value={""}>Status</option>
+                                <option value={"airing"}>airing</option>
+                                <option value={"complete"}>complete</option>
+                                <option value={"upcoming"}>upcoming</option>
+                            </select>
+                        </div>
+                        <div class="relative inline-flex">
+                            <svg
+                                class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 412 232"
+                            >
+                                <path
+                                    d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                    fill="#648299"
+                                    fill-rule="nonzero"
+                                />
+                            </svg>
 
-                        <select
-                            onChange={(e) => handleChangeStatus(e)}
-                            className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
-                        >
-                            <option value={""}>Status</option>
-                            <option value={"airing"}>airing</option>
-                            <option value={"complete"}>complete</option>
-                            <option value={"upcoming"}>upcoming</option>
-                        </select>
+                            <select
+                                value={rating}
+                                onChange={(e) => handleChangeRating(e)}
+                                className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
+                            >
+                                <option value={""}>Rating</option>
+                                <option value={"G"}>G - All Ages</option>
+                                <option value={"pg"}>PG - Children</option>
+                                <option value={"pg13"}>PG-13 - Teens</option>
+                                <option value={"r17"}>R - 17+ Adults</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="relative inline-flex">
                         {sort === "asc" ? (
@@ -228,6 +275,7 @@ export default function Search() {
                         )}
 
                         <button
+                            value={sort}
                             onClick={handleChangeSort}
                             className="h-10 pl-5 pr-10 transition-all duration-300 appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary"
                         >
@@ -256,7 +304,12 @@ export default function Search() {
                         }`}
                     >{`Status: ${statusBy}`}</p>
                     <p
-                        className={`md:text-xl ${orderBy ? "block" : "hidden"}`}
+                        className={`md:text-xl ${
+                            ratingBy ? "block" : "hidden"
+                        }`}
+                    >{`Rating: ${ratingBy}`}</p>
+                    <p
+                        className={`md:text-xl ${sortBy ? "block" : "hidden"}`}
                     >{`Sort: ${
                         sortBy === "asc" ? "ascending" : "descending"
                     }`}</p>
@@ -270,7 +323,8 @@ export default function Search() {
                         orderBy,
                         sortBy,
                         typeBy,
-                        statusBy
+                        statusBy,
+                        ratingBy
                     )}
                     title={`Result for ${params.value}`}
                     all={true}
