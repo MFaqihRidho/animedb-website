@@ -13,11 +13,15 @@ export default function Search() {
     let [searchParams, setSearchParams] = useSearchParams();
     const orderBy = searchParams.get("order_by");
     const sortBy = searchParams.get("sort");
+    const typeBy = searchParams.get("type");
+    const statusBy = searchParams.get("status");
 
     // State
     const [nextPage, setNextPage] = useState(0);
     const [order, setOrder] = useState([]);
     const [sort, setSort] = useState("asc");
+    const [type, setType] = useState([]);
+    const [status, setStatus] = useState([]);
     const [queryParams, setQueryParams] = useState([]);
 
     const baseUrl = `/search/${params.value}/page/${params.number}`;
@@ -45,37 +49,64 @@ export default function Search() {
         }
     };
 
+    const handleChangeType = (e) => {
+        if (e.target.value !== "") {
+            setType(e.target.value);
+        } else {
+            setType("");
+        }
+    };
+
+    const handleChangeStatus = (e) => {
+        if (e.target.value !== "") {
+            setStatus(e.target.value);
+        } else {
+            setStatus("");
+        }
+    };
+
     const applyFilter = () => {
         setQueryParams(
-            `?${order !== "" ? `&order_by=${order}` : ""}&${
-                sort !== "" ? `sort=${sort}` : ""
+            `?${order !== "" ? `&order_by=${order}` : ""}${
+                sort !== "" ? `&sort=${sort}` : ""
+            }${type !== "" ? `&type=${type}` : ""}${
+                status !== "" ? `&status=${status}` : ""
             }`
         );
         navigate(
-            `${baseUrl}?${order !== "" ? `&order_by=${order}` : ""}&${
-                sort !== "" ? `sort=${sort}` : ""
+            `${baseUrl}?${order !== "" ? `&order_by=${order}` : ""}${
+                sort !== "" ? `&sort=${sort}` : ""
+            }${type !== "" ? `&type=${type}` : ""}${
+                status !== "" ? `&status=${status}` : ""
             }`
         );
-        console.log(sort);
+        console.log(type);
     };
 
     useEffect(() => {
         let mounted = true;
         scrollTop();
-        getSearchAPI(params.value, params.number).then((result) => {
-            if (mounted) {
-                setNextPage(result.pagination.last_visible_page);
-                setOrder("");
-            } else {
-                return;
+        getSearchAPI(params.value, params.number, orderBy, sortBy, typeBy).then(
+            (result) => {
+                if (mounted) {
+                    setNextPage(result.pagination.last_visible_page);
+                } else {
+                    return;
+                }
             }
-        });
+        );
         return () => (mounted = false);
-    }, [params.value]);
+    }, [params]);
 
     useEffect(() => {
         scrollTop();
-    }, [params.number]);
+    }, [params]);
+
+    useEffect(() => {
+        setOrder("");
+        setType("");
+        setSort("");
+    }, [params.value]);
 
     return (
         <div className="flex flex-col gap-2 pt-10">
@@ -95,7 +126,6 @@ export default function Search() {
                         </svg>
 
                         <select
-                            value={order}
                             onChange={(e) => handleChangeOrderBy(e)}
                             className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
                         >
@@ -112,6 +142,56 @@ export default function Search() {
                             <option value={"popularity"}>popularity</option>
                             <option value={"members"}>members</option>
                             <option value={"favorites"}>favorites</option>
+                        </select>
+                    </div>
+                    <div class="relative inline-flex">
+                        <svg
+                            class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 412 232"
+                        >
+                            <path
+                                d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                fill="#648299"
+                                fill-rule="nonzero"
+                            />
+                        </svg>
+
+                        <select
+                            value={type}
+                            onChange={(e) => handleChangeType(e)}
+                            className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
+                        >
+                            <option value={""}>Type</option>
+                            <option value={"tv"}>tv</option>
+                            <option value={"movie"}>movie</option>
+                            <option value={"ova"}>ova</option>
+                            <option value={"special"}>special</option>
+                            <option value={"ona"}>ona</option>
+                            <option value={"music"}>music</option>
+                        </select>
+                    </div>
+                    <div class="relative inline-flex">
+                        <svg
+                            class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 412 232"
+                        >
+                            <path
+                                d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                fill="#648299"
+                                fill-rule="nonzero"
+                            />
+                        </svg>
+
+                        <select
+                            onChange={(e) => handleChangeStatus(e)}
+                            className="h-10 pl-5 pr-10 transition-all duration-300 outline-none appearance-none rounded-xl focus:ring-4 focus:ring-light_primary focus:dark:ring-dark_primary bg-light_secondary dark:bg-dark_secondary focus:outline-none active:outline-none"
+                        >
+                            <option value={""}>Status</option>
+                            <option value={"airing"}>airing</option>
+                            <option value={"complete"}>complete</option>
+                            <option value={"upcoming"}>upcoming</option>
                         </select>
                     </div>
                     <div class="relative inline-flex">
@@ -163,6 +243,24 @@ export default function Search() {
                         Apply
                     </button>
                 </div>
+                <div className="flex md:flex-row flex-col md:gap-5 gap-3">
+                    <p
+                        className={`md:text-xl ${orderBy ? "block" : "hidden"}`}
+                    >{`Order By: ${orderBy}`}</p>
+                    <p
+                        className={`md:text-xl ${typeBy ? "block" : "hidden"}`}
+                    >{`Type: ${typeBy}`}</p>
+                    <p
+                        className={`md:text-xl ${
+                            statusBy ? "block" : "hidden"
+                        }`}
+                    >{`Status: ${statusBy}`}</p>
+                    <p
+                        className={`md:text-xl ${orderBy ? "block" : "hidden"}`}
+                    >{`Sort: ${
+                        sortBy === "asc" ? "ascending" : "descending"
+                    }`}</p>
+                </div>
             </div>
             <div className="flex flex-col justify-between min-h-screen">
                 <CardList
@@ -170,7 +268,9 @@ export default function Search() {
                         params.value,
                         params.number,
                         orderBy,
-                        sortBy
+                        sortBy,
+                        typeBy,
+                        statusBy
                     )}
                     title={`Result for ${params.value}`}
                     all={true}
