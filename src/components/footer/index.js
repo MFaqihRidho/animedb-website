@@ -44,22 +44,26 @@ export default function Footer() {
                 </div>
                 <h5 className="mb-3 text-xl md:mb-5">MFaqihRidho © 2022</h5>
                 <div className="w-full h-0.5 bg-gray-700 dark:bg-gray-200 mb-2"></div>
-                <p className="mb-2 ">
+                <p className="mb-2">
                     Powered By{" "}
                     <a
                         href="https://jikan.moe"
-                        className="underline decoration-white underline-offset-1 decoration-2"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-gray-700 dark:text-gray-200"
+                        className="underline"
                     >
-                        JIKAN API{" "}
+                        JIKAN API
                     </a>
                 </p>
-                <p className="text-center ">
-                    Icon vector created by ikaika -{" "}
-                    <a href="https://www.freepik.com/vectors/icon">
-                        www.freepik.com
+
+                <p className="text-center">
+                    <a
+                        href="https://www.flaticon.com/free-icons/find"
+                        title="find icons"
+                        target="_blank"
+                        className="underline underline-offset-2"
+                    >
+                        Find icons created by Freepik - Flaticon
                     </a>
                 </p>
             </div>
