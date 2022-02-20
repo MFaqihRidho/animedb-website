@@ -53,12 +53,21 @@ export default function CardList(props) {
                         {props.title}
                     </h1>
                     <div className="lg:w-2/3 h-0.5 w-1/6 sm:w-1/2 bg-gray-200 dark:bg-gray-500"></div>
-                    <button
-                        onClick={() => setAll(!all)}
-                        className="text-lg font-extrabold md:text-xl text-light_secondary dark:text-dark_secondary"
-                    >
-                        {all ? "VIEW LESS" : "VIEW ALL"}
-                    </button>
+                    {props?.link === true ? (
+                        <button
+                            onClick={() => navigate(props.navigate)}
+                            className="text-lg font-extrabold md:text-xl text-light_secondary dark:text-dark_secondary"
+                        >
+                            {all ? "VIEW LESS" : "VIEW ALL"}
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => setAll(!all)}
+                            className="text-lg font-extrabold md:text-xl text-light_secondary dark:text-dark_secondary"
+                        >
+                            {all ? "VIEW LESS" : "VIEW ALL"}
+                        </button>
+                    )}
                 </div>
                 {loading === true ? (
                     <CardLoading></CardLoading>
@@ -66,12 +75,19 @@ export default function CardList(props) {
                   error !== "" ? (
                     <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                         {all
-                            ? data?.map((data) => (
+                            ? data?.map((data, index) => (
                                   <div
                                       id={data.mal_id}
                                       onClick={handleClickEvent}
                                       className="relative w-full px-1 py-1 overflow-hidden transition-all duration-200 lg:w-full lg:px-0 lg:py-0 lg:hover:-translate-y-2 lg:hover:px-1 lg:hover:py-1 bg-light_secondary dark:bg-dark_secondary lg:bg-white lg:dark:bg-black lg:hover:bg-light_secondary lg:hover:dark:bg-dark_secondary h-fit card rounded-xl "
                                   >
+                                      {props?.rank ? (
+                                          <p className="hidden text-xl text-center lg:block">
+                                              <span className="text-md text-bold">
+                                                  {data?.rank}
+                                              </span>
+                                          </p>
+                                      ) : null}
                                       <img
                                           src={data.images.jpg.large_image_url}
                                           alt=""
@@ -82,6 +98,13 @@ export default function CardList(props) {
                                       >
                                           {data.title}
                                       </p>
+                                      {props?.rank ? (
+                                          <p className="text-center lg:hidden">
+                                              <span className="text-md text-bold">
+                                                  {data?.rank}
+                                              </span>
+                                          </p>
+                                      ) : null}
                                   </div>
                               ))
                             : data?.slice(0, 5).map((data) => (

@@ -5,6 +5,8 @@ import Footer from "./components/footer";
 import Details from "./pages/details";
 import Search from "./pages/search";
 import About from "./pages/about";
+import Anime from "./pages/anime";
+import TopAnime from "./pages/Top Anime";
 
 function App() {
     return (
@@ -12,6 +14,8 @@ function App() {
             <Navbar></Navbar>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/Anime" element={<Anime />} />
+                <Route path="/topAnime" element={<TopAnime />} />
                 <Route path="/details/:id" element={<Details />} />
                 <Route
                     path="/search/:value/page/:number"

@@ -18,6 +18,18 @@ export const getAiringAPI = () => {
     );
 };
 
+export const getTopAPI = () => {
+    return fetch(`https://api.jikan.moe/v4/top/anime`)
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("Something went wrong");
+            }
+        })
+        .then((results) => Promise.resolve(results));
+};
+
 export const getSearchAPI = (
     keyword,
     num,
