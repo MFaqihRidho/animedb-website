@@ -100,15 +100,21 @@ export default function Search() {
     useEffect(() => {
         let mounted = true;
         scrollTop();
-        getSearchAPI(params.value, params.number, orderBy, sortBy, typeBy).then(
-            (result) => {
-                if (mounted) {
-                    setNextPage(result.pagination.last_visible_page);
-                } else {
-                    return;
-                }
+        getSearchAPI(
+            params.value,
+            params.number,
+            orderBy,
+            sortBy,
+            typeBy,
+            statusBy,
+            ratingBy
+        ).then((result) => {
+            if (mounted) {
+                setNextPage(result.pagination.last_visible_page);
+            } else {
+                return;
             }
-        );
+        });
         return () => (mounted = false);
     }, [params]);
 

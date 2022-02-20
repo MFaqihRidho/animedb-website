@@ -18,8 +18,8 @@ export const getAiringAPI = () => {
     );
 };
 
-export const getTopAPI = () => {
-    return fetch(`https://api.jikan.moe/v4/top/anime`)
+export const getTopAPI = (num) => {
+    return fetch(`https://api.jikan.moe/v4/top/anime?page=${num}`)
         .then((res) => {
             if (res.ok) {
                 return res.json();

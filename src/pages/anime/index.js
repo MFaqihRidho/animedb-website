@@ -7,9 +7,9 @@ export default function Anime() {
         <div className="min-h-screen py-10">
             <CardList
                 title="Top Anime"
-                api={getTopAPI()}
+                api={getTopAPI(1)}
                 link={true}
-                navigate={"/topAnime"}
+                navigate={"/topAnime/page/1"}
             ></CardList>
         </div>
     );
