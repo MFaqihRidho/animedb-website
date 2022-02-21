@@ -14,7 +14,7 @@ export default function Hero() {
     useEffect(() => {
         let mounted = true;
         dispatch({ type: "LOADING_HERO_TRUE" });
-        getUpcomingAPI().then((result) => {
+        getUpcomingAPI(1).then((result) => {
             if (mounted) {
                 setData(result.data);
                 dispatch({ type: "LOADING_HERO_FALSE" });
@@ -26,19 +26,19 @@ export default function Hero() {
     }, []);
 
     return (
-        <div className="w-full -mt-1 p-5 transition-all duration-300 dark:bg-dark_primary bg-light_primary min-h-screen mb-10 md:min-h-fit">
+        <div className="w-full min-h-screen p-5 mb-10 -mt-1 transition-all duration-300 dark:bg-dark_primary bg-light_primary md:min-h-fit">
             <div className="container mx-auto text-gray-700 dark:text-gray-200">
-                <h1 className="pt-4 text-3xl sm:text-4xl font-semibold text-center ">
+                <h1 className="pt-4 text-3xl font-semibold text-center sm:text-4xl ">
                     Top Upcoming
                 </h1>
 
                 {loading === true ? (
                     <div className="w-[90%] m-auto flex mt-10 overflow-hidden animate-pulse bg-white h-96 dark:bg-gray-600 rounded-3xl shadow-sm">
-                        <div className="relative w-full md:w-2/3 h-full rounded dark:bg-gray-700 bg-gray-200"></div>
-                        <div className="w-1/2 px-5 py-16 hidden md:block">
-                            <div className="w-full my-3 dark:bg-gray-700 bg-gray-200 h-12"></div>
-                            <div className="w-1/2 my-3 dark:bg-gray-700 bg-gray-200 h-8"></div>
-                            <div className="w-1/4 mt-36 dark:bg-gray-700 bg-gray-200 h-8"></div>
+                        <div className="relative w-full h-full bg-gray-200 rounded md:w-2/3 dark:bg-gray-700"></div>
+                        <div className="hidden w-1/2 px-5 py-16 md:block">
+                            <div className="w-full h-12 my-3 bg-gray-200 dark:bg-gray-700"></div>
+                            <div className="w-1/2 h-8 my-3 bg-gray-200 dark:bg-gray-700"></div>
+                            <div className="w-1/4 h-8 bg-gray-200 mt-36 dark:bg-gray-700"></div>
                         </div>
                     </div>
                 ) : (
@@ -51,9 +51,9 @@ export default function Hero() {
                     >
                         {data?.map((data) => (
                             <SplideSlide>
-                                <div className="flex w-fit md:w-full mx-auto overflow-hidden transition-all duration-300 bg-white h-96 dark:bg-gray-500 rounded-3xl">
+                                <div className="flex mx-auto overflow-hidden transition-all duration-300 bg-white w-fit md:w-full h-96 dark:bg-gray-500 rounded-3xl">
                                     {data?.trailer.embed_url ? (
-                                        <div className="relative hidden xl:block w-2/3 h-full rounded iframe-container">
+                                        <div className="relative hidden w-2/3 h-full rounded xl:block iframe-container">
                                             <iframe
                                                 src={data?.trailer.embed_url}
                                                 frameborder="0"
@@ -61,7 +61,7 @@ export default function Hero() {
                                             ></iframe>
                                         </div>
                                     ) : (
-                                        <h1 className="m-auto xl:block hidden text-5xl font-semibold w-2/3 text-center">
+                                        <h1 className="hidden w-2/3 m-auto text-5xl font-semibold text-center xl:block">
                                             No Trailer available
                                         </h1>
                                     )}
@@ -73,7 +73,7 @@ export default function Hero() {
                                                     ? data?.trailer.url
                                                     : `https://www.youtube.com/results?search_query=${data?.title}`
                                             }
-                                            className="block relative xl:hidden"
+                                            className="relative block xl:hidden"
                                         >
                                             <img
                                                 src={
@@ -81,20 +81,20 @@ export default function Hero() {
                                                         .large_image_url
                                                 }
                                                 alt=""
-                                                className="block xl:hidden h-full object-cover w-full md:max-w-xs"
+                                                className="block object-cover w-full h-full xl:hidden md:max-w-xs"
                                             />
                                         </a>
                                     ) : (
-                                        <h1 className="block xl:hidden m-auto text-4xl font-semibold w-2/3 text-center">
+                                        <h1 className="block w-2/3 m-auto text-4xl font-semibold text-center xl:hidden">
                                             No image available
                                         </h1>
                                     )}
 
-                                    <div className="w-1/2 px-5 py-16 hidden md:block m-auto">
+                                    <div className="hidden w-1/2 px-5 py-16 m-auto md:block">
                                         <h3 className="md:text-6xl max-h-[11.5rem] overflow-hidden elipsiss font-semibold">
                                             {data?.title}
                                         </h3>
-                                        <p className="text-xl max-h-14 truncate ">
+                                        <p className="text-xl truncate max-h-14 ">
                                             {data?.synopsis}
                                         </p>
                                         <p className="text-xl">{data?.type}</p>
@@ -121,7 +121,7 @@ export default function Hero() {
                                         </div>
                                     </div>
                                 </div>
-                                <h3 className="text-center text-2xl my-3 block md:hidden">
+                                <h3 className="block my-3 text-2xl text-center md:hidden">
                                     {data?.title}
                                 </h3>
                             </SplideSlide>

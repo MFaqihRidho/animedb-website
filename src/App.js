@@ -6,7 +6,8 @@ import Details from "./pages/details";
 import Search from "./pages/search";
 import About from "./pages/about";
 import Anime from "./pages/anime";
-import TopAnime from "./pages/Top Anime";
+import { getTopAPI, getUpcomingAPI } from "./config";
+import PagesCard from "./pages/pages card list";
 
 function App() {
     return (
@@ -15,7 +16,18 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Anime" element={<Anime />} />
-                <Route path="/topAnime/page/:number" element={<TopAnime />} />
+                <Route
+                    path="/top/page/:number"
+                    element={
+                        <PagesCard title={"Top"} rank={true} api={getTopAPI} />
+                    }
+                />
+                <Route
+                    path="/upcoming/page/:number"
+                    element={
+                        <PagesCard title={"Upcoming"} api={getUpcomingAPI} />
+                    }
+                />
                 <Route path="/details/:id" element={<Details />} />
                 <Route
                     path="/search/:value/page/:number"

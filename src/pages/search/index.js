@@ -133,7 +133,7 @@ export default function Search() {
     return (
         <div className="flex flex-col gap-2 pt-10">
             <div className="container flex flex-col items-center justify-center gap-5 px-10 mx-auto md:px-5">
-                <div className="flex flex-col md:flex-row items-center gap-5">
+                <div className="flex flex-col items-center gap-5 md:flex-row">
                     <div className="flex flex-row gap-5">
                         <div class="relative inline-flex">
                             <svg
@@ -196,7 +196,7 @@ export default function Search() {
                             </select>
                         </div>
                     </div>
-                    <div className=" flex flex-row gap-5">
+                    <div className="flex flex-row gap-5 ">
                         <div class="relative inline-flex">
                             <svg
                                 class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
@@ -297,7 +297,7 @@ export default function Search() {
                         Apply
                     </button>
                 </div>
-                <div className="flex md:flex-row flex-col md:gap-5 gap-3">
+                <div className="flex flex-col gap-3 md:flex-row md:gap-5">
                     <p
                         className={`md:text-xl ${orderBy ? "block" : "hidden"}`}
                     >{`Order By: ${orderBy}`}</p>
@@ -334,6 +334,7 @@ export default function Search() {
                     )}
                     title={`Result for ${params.value}`}
                     all={true}
+                    firstCard={true}
                 ></CardList>
                 <Pagination
                     title="search"

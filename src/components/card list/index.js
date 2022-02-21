@@ -28,7 +28,11 @@ export default function CardList(props) {
             .then((result) => {
                 if (mounted) {
                     setData(result.data);
-                    dispatch({ type: "LOADING_CARD_FALSE" });
+                    if (props.firstCard) {
+                        dispatch({ type: "LOADING_CARD_FALSE" });
+                    } else {
+                        return;
+                    }
                 } else {
                     return;
                 }
@@ -36,7 +40,11 @@ export default function CardList(props) {
             .catch((error) => {
                 if (mounted) {
                     setError(error);
-                    dispatch({ type: "LOADING_CARD_FALSE" });
+                    if (props.firstCard) {
+                        dispatch({ type: "LOADING_CARD_FALSE" });
+                    } else {
+                        return;
+                    }
                 } else {
                     return;
                 }
@@ -71,11 +79,10 @@ export default function CardList(props) {
                 </div>
                 {loading === true ? (
                     <CardLoading></CardLoading>
-                ) : (data?.length !== 0 && loading === false) ||
-                  error !== "" ? (
+                ) : data?.length !== 0 && loading === false && error === "" ? (
                     <div className="grid grid-cols-3 gap-3 px-5 py-5 md:px-0 justify-items-center lg:grid-cols-5 lg:gap-10 sm:gap-5 md:grid-cols-3 md:gap-7 card-list">
                         {all
-                            ? data?.map((data, index) => (
+                            ? data?.map((data) => (
                                   <div
                                       id={data.mal_id}
                                       onClick={handleClickEvent}
@@ -89,7 +96,7 @@ export default function CardList(props) {
                                           </p>
                                       ) : null}
                                       <img
-                                          src={data.images.jpg.large_image_url}
+                                          src={data.images.jpg.image_url}
                                           alt=""
                                           className="object-cover w-full h-32 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                       />
@@ -114,7 +121,7 @@ export default function CardList(props) {
                                       className="relative w-full px-1 py-1 overflow-hidden transition-all duration-200 lg:w-full lg:px-0 lg:py-0 lg:hover:-translate-y-2 lg:hover:px-1 lg:hover:py-1 bg-light_secondary dark:bg-dark_secondary lg:bg-white lg:dark:bg-black lg:hover:bg-light_secondary lg:hover:dark:bg-dark_secondary h-fit card rounded-xl "
                                   >
                                       <img
-                                          src={data.images.jpg.large_image_url}
+                                          src={data.images.jpg.image_url}
                                           alt=""
                                           className="object-cover w-full h-32 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                       />

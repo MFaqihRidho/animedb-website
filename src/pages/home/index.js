@@ -10,6 +10,7 @@ export default function Home() {
         <div className="Home">
             <Hero></Hero>
             <CardList
+                firstCard={true}
                 api={getSeasonAPI(2022, "summer")}
                 title={"Summer 2022"}
             ></CardList>

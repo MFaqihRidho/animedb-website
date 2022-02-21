@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import CardList from "../../components/card list";
-import { getTopAPI } from "../../config";
 import Pagination from "../../components/pagination";
 import { useParams } from "react-router-dom";
 
-export default function TopAnime() {
+export default function PagesCard(props) {
     const [nextPage, setNextPage] = useState([]);
     const params = useParams();
 
@@ -18,7 +17,7 @@ export default function TopAnime() {
     useEffect(() => {
         let mounted = true;
         scrollTop();
-        getTopAPI(1).then((result) => {
+        props?.api(1).then((result) => {
             if (mounted) {
                 setNextPage(result.pagination.last_visible_page);
             } else {
@@ -35,12 +34,13 @@ export default function TopAnime() {
     return (
         <div className="min-h-screen py-10">
             <CardList
-                title="Top Anime"
-                api={getTopAPI(params.number)}
+                title={`${props.title} Anime`}
+                api={props?.api(params.number)}
                 all={true}
-                rank={true}
+                rank={props.rank}
+                firstCard={true}
             ></CardList>
-            <Pagination title="topAnime" maxPage={nextPage}></Pagination>
+            <Pagination title={props.title} maxPage={nextPage}></Pagination>
         </div>
     );
 }
