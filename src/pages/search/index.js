@@ -10,7 +10,7 @@ export default function Search() {
     const navigate = useNavigate();
 
     // Query String
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams] = useSearchParams();
     const orderBy = searchParams.get("order_by");
     const sortBy = searchParams.get("sort");
     const typeBy = searchParams.get("type");
@@ -116,7 +116,7 @@ export default function Search() {
             }
         });
         return () => (mounted = false);
-    }, [params]);
+    }, [params, orderBy, ratingBy, sortBy, statusBy, typeBy]);
 
     useEffect(() => {
         scrollTop();

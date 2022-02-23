@@ -4,7 +4,7 @@ import { getCharactersAPI, getStaffAPI } from "../../../config";
 import { useSelector, useDispatch } from "react-redux";
 import ContentLoading from "../../content loading";
 
-export default function Character_Staff() {
+export default function CharacterStaff() {
     const params = useParams();
     const [character, setCharacter] = useState([]);
     const [staff, setStaff] = useState([]);
@@ -26,7 +26,7 @@ export default function Character_Staff() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch]);
     return (
         <div className="pt-10">
             {loading ? (

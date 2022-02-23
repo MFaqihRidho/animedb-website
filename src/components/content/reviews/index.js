@@ -22,7 +22,7 @@ export default function Reviews() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch]);
 
     return (
         <div className="flex flex-col gap-10 pt-10">

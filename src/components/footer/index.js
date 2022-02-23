@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SocialIcon } from "react-social-icons";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -11,7 +11,7 @@ export default function Footer() {
         } else {
             dispatch({ type: "DARK_MODE" });
         }
-    }, [dark]);
+    }, [dark, dispatch]);
 
     return (
         <footer className="w-full mt-10 transition-all duration-300 h-52 bg-light_primary dark:bg-dark_primary">
@@ -61,6 +61,7 @@ export default function Footer() {
                         href="https://www.flaticon.com/free-icons/find"
                         title="find icons"
                         target="_blank"
+                        rel="noreferrer"
                         className="underline underline-offset-2"
                     >
                         Find icons created by Freepik - Flaticon

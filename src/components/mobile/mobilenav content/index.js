@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 
 export default function MobileContentNav(props) {
     const menuRef = useRef(null);
     const [listening, setListening] = useState(false);
     const [showDropDown, setShowDropDown] = useState(false);
 
-    const toggleDropDown = () => {
+    const toggleDropDown = useCallback(() => {
         setShowDropDown(!showDropDown);
-    };
+    }, [showDropDown]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -18,7 +18,7 @@ export default function MobileContentNav(props) {
             }
         }, 4000);
         return () => clearInterval(interval);
-    }, [showDropDown]);
+    }, [showDropDown, toggleDropDown]);
 
     useEffect(() => {
         if (listening) return;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { getDetailsAPI } from "../../config";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,8 +7,8 @@ import Episodes from "../../components/content/Episodes";
 import Reviews from "../../components/content/reviews";
 import Recommendation from "../../components/content/recommendations";
 import Stats from "../../components/content/stats";
-import Character_Staff from "../../components/content/character & staff";
-import More_Info from "../../components/content/more info";
+import CharacterStaff from "../../components/content/character & staff";
+import MoreInfo from "../../components/content/more info";
 import DetailsLoading from "../../components/details loading";
 import MobileContentNav from "../../components/mobile/mobilenav content";
 
@@ -28,10 +28,9 @@ export default function Details() {
         contentNav ? setContent(5) : setContent(1);
     };
 
-    const switchContent = (index) => {
+    const switchContent = useCallback((index) => {
         setContent(index);
-        console.log(content);
-    };
+    }, []);
 
     const scrollTop = () => {
         window.scrollTo({
@@ -40,7 +39,7 @@ export default function Details() {
         });
     };
 
-    const listenToScroll = () => {
+    const listenToScroll = useCallback(() => {
         let heightToShowFrom = 5000;
         const winScroll =
             document.body.scrollTop || document.documentElement.scrollTop;
@@ -51,13 +50,13 @@ export default function Details() {
         } else {
             setIsVisible(false);
         }
-    };
+    }, [isVisible]);
 
     useEffect(() => {
         setIsVisible(false);
         window.addEventListener("scroll", listenToScroll);
         return () => window.removeEventListener("scroll", listenToScroll);
-    }, []);
+    }, [listenToScroll]);
 
     useEffect(() => {
         let mounted = true;
@@ -73,7 +72,7 @@ export default function Details() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch, switchContent]);
     return (
         <div className="w-full min-h-screen text-gray-700 dark:text-gray-200">
             {loading ? (
@@ -471,11 +470,11 @@ export default function Details() {
                             <div>{content === 5 ? <Stats></Stats> : null}</div>
                             <div>
                                 {content === 6 ? (
-                                    <Character_Staff></Character_Staff>
+                                    <CharacterStaff></CharacterStaff>
                                 ) : null}
                             </div>
                             <div>
-                                {content === 7 ? <More_Info></More_Info> : null}
+                                {content === 7 ? <MoreInfo></MoreInfo> : null}
                             </div>
                             {isVisible && (
                                 <button

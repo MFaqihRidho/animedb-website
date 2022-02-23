@@ -22,7 +22,7 @@ export default function Videos() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch]);
     return (
         <div className="flex flex-col gap-10 pt-10 pb-5">
             {loading ? (
@@ -34,6 +34,7 @@ export default function Videos() {
                         <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
                             <iframe
                                 src={data?.trailer?.embed_url}
+                                title={data?.title}
                                 frameborder="0"
                                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen

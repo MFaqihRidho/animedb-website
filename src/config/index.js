@@ -1,5 +1,3 @@
-const baseSearchUrl = "https://api.jikan.moe/v4/anime";
-
 export const getUpcomingAPI = (num) => {
     return fetch(`https://api.jikan.moe/v4/seasons/upcoming?page=${num}`).then(
         (res) => res.json().then((results) => Promise.resolve(results))

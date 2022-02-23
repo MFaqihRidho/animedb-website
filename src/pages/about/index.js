@@ -15,6 +15,7 @@ export default function About() {
                 <a
                     className="underline"
                     target={"_blank"}
+                    rel="noreferrer"
                     href="https://dribbble.com/shots/14879802-MyAnimeList-Website-Redesign/attachments/6591878?mode=media"
                 >
                     Design inspiration for this project
@@ -22,6 +23,7 @@ export default function About() {
                 .This project uses{" "}
                 <a
                     className="underline"
+                    rel="noreferrer"
                     target={"_blank"}
                     href="https://dribbble.com/shots/14879802-MyAnimeList-Website-Redesign/attachments/6591878?mode=media"
                 >

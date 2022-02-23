@@ -25,7 +25,7 @@ export default function PagesCard(props) {
             }
         });
         return () => (mounted = false);
-    }, []);
+    }, [props]);
 
     useEffect(() => {
         scrollTop();

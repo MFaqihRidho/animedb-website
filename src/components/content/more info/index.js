@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMoreInfoAPI } from "../../../config";
 
-export default function More_Info() {
+export default function MoreInfo() {
     const params = useParams();
     const [data, setData] = useState([]);
 

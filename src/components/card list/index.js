@@ -54,7 +54,7 @@ export default function CardList(props) {
                 }
             });
         return () => (mounted = false);
-    }, [params]);
+    }, [params, dispatch, error, props.all, props.api, props.firstCard]);
 
     return (
         <div className="w-full px-3 pt-2 transition-all duration-300 bg-white md:px-5 dark:bg-black min-h-fit">

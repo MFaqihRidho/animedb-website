@@ -22,7 +22,7 @@ export default function Stats() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch]);
     return (
         <div className="pt-10">
             {loading ? (

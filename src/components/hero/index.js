@@ -23,7 +23,7 @@ export default function Hero() {
             }
         });
         return () => (mounted = false);
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="w-full min-h-screen p-5 mb-10 -mt-1 transition-all duration-300 dark:bg-dark_primary bg-light_primary md:min-h-fit">
@@ -56,6 +56,7 @@ export default function Hero() {
                                         <div className="relative hidden w-2/3 h-full rounded xl:block iframe-container">
                                             <iframe
                                                 src={data?.trailer.embed_url}
+                                                title={data?.title}
                                                 frameborder="0"
                                                 className="absolute top-0 bottom-0 w-full h-full"
                                             ></iframe>

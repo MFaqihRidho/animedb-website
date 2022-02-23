@@ -22,7 +22,7 @@ export default function Episodes() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch]);
     return (
         <div className="flex flex-col items-start w-full pt-10 gap-7 md:gap-5">
             {loading ? (

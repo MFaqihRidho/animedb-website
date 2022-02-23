@@ -29,7 +29,7 @@ export default function Recommendation() {
             }
         });
         return () => (mounted = false);
-    }, [params.id]);
+    }, [params.id, dispatch]);
     return (
         <div className="pt-10 pb-5">
             {loading === true ? (
