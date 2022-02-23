@@ -100,7 +100,7 @@ export default function CardList(props) {
                                           </p>
                                       ) : null}
                                       <img
-                                          src={data.images.jpg.image_url}
+                                          src={data.images.webp.image_url}
                                           alt=""
                                           className="object-cover w-full h-32 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                       />
@@ -125,7 +125,7 @@ export default function CardList(props) {
                                       className="relative w-full px-1 py-1 overflow-hidden transition-all duration-200 lg:w-full lg:px-0 lg:py-0 lg:hover:-translate-y-2 lg:hover:px-1 lg:hover:py-1 bg-light_secondary dark:bg-dark_secondary lg:bg-white lg:dark:bg-black lg:hover:bg-light_secondary lg:hover:dark:bg-dark_secondary h-fit card rounded-xl "
                                   >
                                       <img
-                                          src={data.images.jpg.image_url}
+                                          src={data.images.webp.image_url}
                                           alt=""
                                           className="object-cover w-full h-32 md:h-80 lg:h-60 xl:h-80 rounded-xl"
                                       />

@@ -67,7 +67,7 @@ export default function Hero() {
                                         </h1>
                                     )}
 
-                                    {data?.images.jpg.large_image_url ? (
+                                    {data?.images.jpg.image_url ? (
                                         <a
                                             href={
                                                 data?.trailer.url
@@ -77,10 +77,7 @@ export default function Hero() {
                                             className="relative block xl:hidden"
                                         >
                                             <img
-                                                src={
-                                                    data?.images.jpg
-                                                        .large_image_url
-                                                }
+                                                src={data?.images.jpg.image_url}
                                                 alt=""
                                                 className="block object-cover w-full h-full xl:hidden md:max-w-xs"
                                             />
