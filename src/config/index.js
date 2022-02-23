@@ -12,6 +12,12 @@ export const getSeasonAPI = (year, season) => {
     );
 };
 
+export const getSeasonListAPI = () => {
+    return fetch(`https://api.jikan.moe/v4/seasons`).then((res) =>
+        res.json().then((results) => Promise.resolve(results))
+    );
+};
+
 export const getAiringAPI = () => {
     return fetch(`https://api.jikan.moe/v4/seasons/now`).then((res) =>
         res.json().then((results) => Promise.resolve(results))
@@ -67,6 +73,12 @@ export const getTodayAPI = () => {
     return fetch(`https://api.jikan.moe/v4/schedules?filter=${day}`).then(
         (res) => res.json().then((results) => Promise.resolve(results))
     );
+};
+
+export const getScheduleAPI = (day, num) => {
+    return fetch(
+        `https://api.jikan.moe/v4/schedules?filter=${day}&page=${num}`
+    ).then((res) => res.json().then((results) => Promise.resolve(results)));
 };
 
 export const getRandomAPI = () => {

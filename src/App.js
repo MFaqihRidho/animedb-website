@@ -8,6 +8,8 @@ import About from "./pages/about";
 import Anime from "./pages/anime";
 import { getTopAPI, getUpcomingAPI } from "./config";
 import PagesCard from "./pages/pages card list";
+import Schedule from "./pages/schedule";
+import Season from "./pages/season";
 
 function App() {
     return (
@@ -27,6 +29,14 @@ function App() {
                     element={
                         <PagesCard title={"Upcoming"} api={getUpcomingAPI} />
                     }
+                />
+                <Route
+                    path="/schedule/:day/page/:number"
+                    element={<Schedule />}
+                />
+                <Route
+                    path="/season/page/:number/:year/:season"
+                    element={<Season />}
                 />
                 <Route path="/details/:id" element={<Details />} />
                 <Route

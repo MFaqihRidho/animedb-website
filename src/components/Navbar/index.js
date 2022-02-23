@@ -119,6 +119,7 @@ export default function Navbar() {
                         <button
                             type="submit"
                             id="search"
+                            name="search"
                             onClick={handleSubmit}
                             class="flex items-center bg-light_secondary h-9 dark:bg-dark_secondary justify-center w-12 transition-all duration-300 text-white rounded-r-lg"
                         >
