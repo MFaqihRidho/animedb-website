@@ -11,7 +11,7 @@ export default function Home() {
             <Hero></Hero>
             <CardList
                 firstCard={true}
-                api={getSeasonAPI(2022, "summer")}
+                api={getSeasonAPI(2022, "summer", 1)}
                 title={"Summer 2022"}
             ></CardList>
             <CardList api={getAiringAPI()} title={"Airing"}></CardList>

@@ -44,7 +44,7 @@ export default function Anime() {
                 title="Seasonal Anime"
                 api={getAiringAPI()}
                 link={true}
-                navigate={`/season/2022/summer/page/1`}
+                navigate={`/season/page/1/2022/summer`}
             ></CardList>
         </div>
     );

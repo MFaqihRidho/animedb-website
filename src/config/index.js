@@ -6,10 +6,10 @@ export const getUpcomingAPI = (num) => {
     );
 };
 
-export const getSeasonAPI = (year, season) => {
-    return fetch(`https://api.jikan.moe/v4/seasons/${year}/${season}`).then(
-        (res) => res.json().then((results) => Promise.resolve(results))
-    );
+export const getSeasonAPI = (year, season, num) => {
+    return fetch(
+        `https://api.jikan.moe/v4/seasons/${year}/${season}?page=${num}`
+    ).then((res) => res.json().then((results) => Promise.resolve(results)));
 };
 
 export const getSeasonListAPI = () => {
