@@ -18,10 +18,10 @@ export default function Details() {
     const [content, setContent] = useState(0);
     const [contentNav, setContentNav] = useState(true);
     const loading = useSelector((state) => state.detailsLoading);
+    const [isVisible, setIsVisible] = useState(true);
 
     const dispatch = useDispatch();
 
-    const [isVisible, setIsVisible] = useState(true);
 
     const toggleContentNav = () => {
         setContentNav(!contentNav);
@@ -39,24 +39,24 @@ export default function Details() {
         });
     };
 
-    const listenToScroll = useCallback(() => {
-        let heightToShowFrom = 5000;
-        const winScroll =
-            document.body.scrollTop || document.documentElement.scrollTop;
-
-        if (winScroll > heightToShowFrom) {
-            isVisible && // to limit setting state only the first time
-                setIsVisible(true);
-        } else {
-            setIsVisible(false);
-        }
-    }, [isVisible]);
+   
 
     useEffect(() => {
+        const listenToScroll = () => {
+            let heightToShowFrom = 5000;
+            const winScroll =
+                document.body.scrollTop || document.documentElement.scrollTop;
+            if (winScroll > heightToShowFrom) {
+                 // to limit setting state only the first time
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+            }
+        };
         setIsVisible(false);
         window.addEventListener("scroll", listenToScroll);
         return () => window.removeEventListener("scroll", listenToScroll);
-    }, [listenToScroll]);
+    }, []);
 
     useEffect(() => {
         let mounted = true;
