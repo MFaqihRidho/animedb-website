@@ -20,41 +20,54 @@ export default function CardList(props) {
 
     useEffect(() => {
         let mounted = true;
-        dispatch({ type: "LOADING_CARD_TRUE" });
         if (props.all === true) {
             setAll(true);
         }
-        props.api
-            .then((result) => {
-                if (mounted) {
-                    if (result.error) {
-                        console.log(error);
-                    } else {
-                        setData(result.data);
-                    }
-                    if (props.firstCard) {
-                        dispatch({ type: "LOADING_CARD_FALSE" });
-                    } else {
-                        return;
-                    }
-                } else {
-                    return;
-                }
-            })
-            .catch((error) => {
-                if (mounted) {
-                    setError(error);
-                    if (props.firstCard) {
-                        dispatch({ type: "LOADING_CARD_FALSE" });
+        if (props.haveData) {
+            setData(props.data);
+        } else {
+            dispatch({ type: "LOADING_CARD_TRUE" });
+            props.api
+                .then((result) => {
+                    if (mounted) {
+                        if (result.error) {
+                            console.log(error);
+                        } else {
+                            setData(result.data);
+                        }
+                        if (props.firstCard) {
+                            dispatch({ type: "LOADING_CARD_FALSE" });
+                        } else {
+                            return;
+                        }
                     } else {
                         return;
                     }
-                } else {
-                    return;
-                }
-            });
+                })
+                .catch((error) => {
+                    if (mounted) {
+                        setError(error);
+                        if (props.firstCard) {
+                            dispatch({ type: "LOADING_CARD_FALSE" });
+                        } else {
+                            return;
+                        }
+                    } else {
+                        return;
+                    }
+                });
+        }
         return () => (mounted = false);
-    }, [params, dispatch, error, props.all, props.api, props.firstCard]);
+    }, [
+        params,
+        dispatch,
+        error,
+        props.all,
+        props.api,
+        props.firstCard,
+        props.data,
+        props.haveData,
+    ]);
 
     return (
         <div className="w-full px-3 pt-2 transition-all duration-300 bg-white md:px-5 dark:bg-black min-h-fit">

@@ -44,7 +44,13 @@ export const getSearchAPI = (
     rating
 ) => {
     return fetch(
-        `https://api.jikan.moe/v4/anime?q=${keyword}&page=${num}&sfw&order_by=${order_by}&sort=${sort}&type=${type}&status=${status}&rating=${rating}`
+        `https://api.jikan.moe/v4/anime?${keyword ? `q=${keyword}` : ""}${
+            num ? `&page=${num}` : ""
+        }&sfw${order_by ? `&order_by=${order_by}` : ""}${
+            sort ? `&sort=${sort}` : ""
+        }${type ? `&type=${sort}` : ""}${status ? `&status=${status}` : ""}${
+            rating ? `&rating=${rating}` : ""
+        }`
     )
         .then((res) => {
             if (res.ok) {

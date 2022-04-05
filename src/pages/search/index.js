@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getSearchAPI } from "../../config";
 import CardList from "../../components/card list";
 import Pagination from "../../components/pagination";
+import { useDispatch } from "react-redux";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Search() {
@@ -18,13 +19,17 @@ export default function Search() {
     const ratingBy = searchParams.get("rating");
 
     // State
+    const [data, setData] = useState([]);
     const [nextPage, setNextPage] = useState(0);
-    const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState(false);
     const [sort, setSort] = useState("asc");
-    const [type, setType] = useState([]);
-    const [status, setStatus] = useState([]);
-    const [rating, setRating] = useState([]);
+    const [type, setType] = useState(false);
+    const [status, setStatus] = useState(false);
+    const [rating, setRating] = useState(false);
     const [queryParams, setQueryParams] = useState([]);
+
+    // redux
+    const dispatch = useDispatch();
 
     const baseUrl = `/search/${params.value}/page/${params.number}`;
 
@@ -39,7 +44,7 @@ export default function Search() {
         if (e.target.value !== "") {
             setOrder(e.target.value);
         } else {
-            setOrder("");
+            setOrder(false);
         }
     };
 
@@ -55,7 +60,7 @@ export default function Search() {
         if (e.target.value !== "") {
             setType(e.target.value);
         } else {
-            setType("");
+            setType(false);
         }
     };
 
@@ -63,7 +68,7 @@ export default function Search() {
         if (e.target.value !== "") {
             setStatus(e.target.value);
         } else {
-            setStatus("");
+            setStatus(false);
         }
     };
 
@@ -71,35 +76,36 @@ export default function Search() {
         if (e.target.value !== "") {
             setRating(e.target.value);
         } else {
-            setRating("");
+            setRating(false);
         }
     };
 
     const applyFilter = () => {
         setQueryParams(
-            `?${order !== "" ? `&order_by=${order}` : ""}${
-                sort !== "" ? `&sort=${sort}` : ""
-            }${type !== "" ? `&type=${type}` : ""}${
-                status !== "" ? `&status=${status}` : ""
-            }${rating !== "" ? `&rating=${rating}` : ""}`
+            `?${order ? `&order_by=${order}` : ""}${
+                sort ? `&sort=${sort}` : ""
+            }${type ? `&type=${type}` : ""}${
+                status ? `&status=${status}` : ""
+            }${rating ? `&rating=${rating}` : ""}`
         );
         navigate(
-            `${baseUrl}?${order !== "" ? `&order_by=${order}` : ""}${
-                sort !== "" ? `&sort=${sort}` : ""
-            }${type !== "" ? `&type=${type}` : ""}${
-                status !== "" ? `&status=${status}` : ""
-            }${rating !== "" ? `&rating=${rating}` : ""}`
+            `${baseUrl}?${order ? `&order_by=${order}` : ""}${
+                sort ? `&sort=${sort}` : ""
+            }${type ? `&type=${type}` : ""}${
+                status ? `&status=${status}` : ""
+            }${rating ? `&rating=${rating}` : ""}`
         );
-        setOrder("");
-        setType("");
-        setSort("");
-        setStatus("");
-        setRating("");
+        setOrder(false);
+        setType(false);
+        setSort(false);
+        setStatus(false);
+        setRating(false);
     };
 
     useEffect(() => {
         let mounted = true;
         scrollTop();
+        dispatch({ type: "LOADING_CARD_TRUE" });
         getSearchAPI(
             params.value,
             params.number,
@@ -111,23 +117,25 @@ export default function Search() {
         ).then((result) => {
             if (mounted) {
                 setNextPage(result.pagination.last_visible_page);
+                setData(result.data);
+                dispatch({ type: "LOADING_CARD_FALSE" });
             } else {
                 return;
             }
         });
         return () => (mounted = false);
-    }, [params, orderBy, ratingBy, sortBy, statusBy, typeBy]);
+    }, [params, orderBy, ratingBy, sortBy, statusBy, typeBy, dispatch]);
 
     useEffect(() => {
         scrollTop();
     }, [params]);
 
     useEffect(() => {
-        setOrder("");
-        setType("");
-        setSort("");
-        setStatus("");
-        setRating("");
+        setOrder(false);
+        setType(false);
+        setSort(false);
+        setStatus(false);
+        setRating(false);
     }, [params.value]);
 
     return (
@@ -323,15 +331,8 @@ export default function Search() {
             </div>
             <div className="flex flex-col justify-between min-h-screen">
                 <CardList
-                    api={getSearchAPI(
-                        params.value,
-                        params.number,
-                        orderBy,
-                        sortBy,
-                        typeBy,
-                        statusBy,
-                        ratingBy
-                    )}
+                    data={data}
+                    haveData={true}
                     title={`Result for ${params.value}`}
                     all={true}
                     firstCard={true}

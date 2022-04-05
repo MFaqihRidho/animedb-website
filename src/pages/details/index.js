@@ -22,7 +22,6 @@ export default function Details() {
 
     const dispatch = useDispatch();
 
-
     const toggleContentNav = () => {
         setContentNav(!contentNav);
         contentNav ? setContent(5) : setContent(1);
@@ -39,15 +38,13 @@ export default function Details() {
         });
     };
 
-   
-
     useEffect(() => {
         const listenToScroll = () => {
             let heightToShowFrom = 5000;
             const winScroll =
                 document.body.scrollTop || document.documentElement.scrollTop;
             if (winScroll > heightToShowFrom) {
-                 // to limit setting state only the first time
+                // to limit setting state only the first time
                 setIsVisible(true);
             } else {
                 setIsVisible(false);
@@ -75,9 +72,8 @@ export default function Details() {
     }, [params.id, dispatch, switchContent]);
     return (
         <div className="w-full min-h-screen text-gray-700 dark:text-gray-200">
-            {loading ? (
-                <DetailsLoading></DetailsLoading>
-            ) : (
+            {loading && <DetailsLoading></DetailsLoading>}
+            {!loading && (
                 <div>
                     <div>
                         <div className="absolute w-full transition-all duration-300 h-96 bg-light_primary dark:bg-dark_primary opacity-60 dark:opacity-80"></div>
@@ -453,29 +449,21 @@ export default function Details() {
                             ></MobileContentNav>
                         </div>
                         <div className="container flex flex-col mx-auto min-h-[500px]">
+                            <div>{content === 1 && <Videos></Videos>}</div>
+                            <div>{content === 2 && <Episodes></Episodes>}</div>
+                            <div>{content === 3 && <Reviews></Reviews>}</div>
                             <div>
-                                {content === 1 ? <Videos></Videos> : null}
-                            </div>
-                            <div>
-                                {content === 2 ? <Episodes></Episodes> : null}
-                            </div>
-                            <div>
-                                {content === 3 ? <Reviews></Reviews> : null}
-                            </div>
-                            <div>
-                                {content === 4 ? (
+                                {content === 4 && (
                                     <Recommendation></Recommendation>
-                                ) : null}
+                                )}
                             </div>
-                            <div>{content === 5 ? <Stats></Stats> : null}</div>
+                            <div>{content === 5 && <Stats></Stats>}</div>
                             <div>
-                                {content === 6 ? (
+                                {content === 6 && (
                                     <CharacterStaff></CharacterStaff>
-                                ) : null}
+                                )}
                             </div>
-                            <div>
-                                {content === 7 ? <MoreInfo></MoreInfo> : null}
-                            </div>
+                            <div>{content === 7 && <MoreInfo></MoreInfo>}</div>
                             {isVisible && (
                                 <button
                                     onClick={scrollTop}

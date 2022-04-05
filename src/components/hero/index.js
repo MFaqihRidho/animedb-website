@@ -31,8 +31,7 @@ export default function Hero() {
                 <h1 className="pt-4 text-3xl font-semibold text-center sm:text-4xl ">
                     Top Upcoming
                 </h1>
-
-                {loading === true ? (
+                {loading && (
                     <div className="w-[90%] m-auto flex mt-10 overflow-hidden animate-pulse bg-white h-96 dark:bg-gray-600 rounded-3xl shadow-sm">
                         <div className="relative w-full h-full bg-gray-200 rounded md:w-2/3 dark:bg-gray-700"></div>
                         <div className="hidden w-1/2 px-5 py-16 md:block">
@@ -41,7 +40,8 @@ export default function Hero() {
                             <div className="w-1/4 h-8 bg-gray-200 mt-36 dark:bg-gray-700"></div>
                         </div>
                     </div>
-                ) : (
+                )}
+                {!loading && (
                     <Splide
                         options={{
                             autoplay: true,
