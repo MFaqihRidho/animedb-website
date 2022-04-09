@@ -1,12 +1,12 @@
 export const getUpcomingAPI = (num) => {
-    return fetch(`https://api.jikan.moe/v4/seasons/upcoming?page=${num}`).then(
+    return fetch(`https://api.jikan.moe/v4/seasons/upcoming?page=${num}&sfw`).then(
         (res) => res.json().then((results) => Promise.resolve(results))
     );
 };
 
 export const getSeasonAPI = (year, season, num) => {
     return fetch(
-        `https://api.jikan.moe/v4/seasons/${year}/${season}?page=${num}`
+        `https://api.jikan.moe/v4/seasons/${year}/${season}?page=${num}&sfw`
     ).then((res) => res.json().then((results) => Promise.resolve(results)));
 };
 
@@ -17,7 +17,7 @@ export const getSeasonListAPI = () => {
 };
 
 export const getAiringAPI = () => {
-    return fetch(`https://api.jikan.moe/v4/seasons/now`).then((res) =>
+    return fetch(`https://api.jikan.moe/v4/seasons/now?sfw`).then((res) =>
         res.json().then((results) => Promise.resolve(results))
     );
 };
@@ -81,14 +81,8 @@ export const getTodayAPI = () => {
 
 export const getScheduleAPI = (day, num) => {
     return fetch(
-        `https://api.jikan.moe/v4/schedules?filter=${day}&page=${num}`
+        `https://api.jikan.moe/v4/schedules?filter=${day}&page=${num}&sfw`
     ).then((res) => res.json().then((results) => Promise.resolve(results)));
-};
-
-export const getRandomAPI = () => {
-    return fetch(`https://api.jikan.moe/v4/random/anime`).then((res) =>
-        res.json().then((results) => Promise.resolve(results))
-    );
 };
 
 export const getDetailsAPI = (id) => {
